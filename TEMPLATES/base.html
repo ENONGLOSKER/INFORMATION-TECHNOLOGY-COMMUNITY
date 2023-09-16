@@ -1,0 +1,48 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicons -->
+    <link href="{%static 'img/favicon.png/'%}"" rel="icon">
+
+    <title>Dashboard</title>
+
+    <!-- css -->
+    {%include 'snippets/style.html'%}
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        {%include 'snippets/navbar.html'%}
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            {%block konten%}
+
+            {%endblock konten%}
+
+            <!-- Footer -->
+           {%include 'snippets/footer.html'%}
+
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button & Logout-->
+    {%include 'snippets/logout.html'}
+
+    <!-- Bootstrap core JavaScript-->
+    {%include 'snippets/script.html'%}
+ 
+</body>
+</html>
