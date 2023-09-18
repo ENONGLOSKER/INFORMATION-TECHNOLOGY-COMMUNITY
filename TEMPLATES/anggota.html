@@ -84,9 +84,36 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">UKM ITC<h1>
+                
                 <a href="{%url 'ITC_APP:anggota_create'%}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-plus fa-sm text-white-50"></i>  Add Data</a>                           
-            </div>
+                    class="fas fa-plus fa-sm text-white-50"></i>  Add Data
+                </a>  
+
+                <a href="{%url 'ITC_APP:lihat_sertifikat'%}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                    <i class="fas fa-upload"></i> Unggah Sertifikat
+                </a>
+
+                <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Unggah Sertifikat</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="e_sertifikat" class="form-label">Pilih File Sertifikat</label>
+                                        <input type="file" class="form-control" id="e_sertifikat" name="e_sertifikat">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-upload"></i> Unggah</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
 
         <div class="row">
 
@@ -163,4 +190,6 @@
     <!-- /.container-fluid -->
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 {%endblock konten%}

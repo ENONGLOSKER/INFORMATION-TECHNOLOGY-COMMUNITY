@@ -1,5 +1,17 @@
 from django import forms
-from .models import Anggota
+from .models import Anggota, Sertifikat,Program
+
+
+class SertifikatForm(forms.ModelForm): 
+    class Meta:
+        model = Sertifikat
+        fields = '__all__'
+
+class ProgramForm(forms.ModelForm): 
+    class Meta:
+        model = Program
+        fields = '__all__'
+        
 
 class AnggotaForm(forms.ModelForm):
     GENDER_CHOICES = [("L", "Laki-Laki"), ("P", "Perempuan")]

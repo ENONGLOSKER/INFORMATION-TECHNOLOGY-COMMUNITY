@@ -44,3 +44,33 @@ class Anggota(models.Model):
 
     def get_absolute_url(self):
         return reverse('anggota_detail', args=[str(self.id)])
+
+class Sertifikat(models.Model):
+    e_sertifikat = models.FileField(upload_to='sertifikat/')
+
+    def __str__(self):
+        return self.e_sertifikat.name
+
+class Bidang(models.Model):
+    nama_bidang = models.CharField(max_length=255)
+    deskripsi = models.TextField()
+
+    def __str__(self):
+        return self.nama_bidang
+
+class Pengurus(models.Model):
+    status = models.CharField(max_length=255)
+    nama_pengurus = models.ForeignKey(Anggota, on_delete=models.CASCADE, related_name='anggota')
+    bidang  = models.ForeignKey(Bidang, on_delete=models.CASCADE, related_name='bidang')
+
+    def __str__(self):
+        return self.status
+
+class Program(models.Model):
+    nama_program = models.CharField(max_length=255)
+    jenis_program = models.CharField(max_length=255)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    lokasi_program = models.CharField(max_length=255)
+    waktu = models.CharField(max_length=255)
+    keterangan = models.TextField()
