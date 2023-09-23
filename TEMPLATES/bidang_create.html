@@ -83,7 +83,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">UKM ITC<h1>
+            <h1 class="h3 mb-0 text-gray-800">BIDANG UKM ITC<h1>
                 <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="fas fa-plus fa-sm text-white-50"></i>  Add Data</a>                            -->
             </div>
@@ -96,10 +96,15 @@
                     <!-- Card Header - Dropdown -->
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Form Register</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Form Bidang</h6>
                         </div>
                         <div class="card-body ">
-                           <div id='calendar'></div>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <a href="#" class="btn btn-secondary">Batal</a>
+                            </form>
                         </div>
                     </div>                               
                 </div>
@@ -108,17 +113,6 @@
 
     </div>
     <!-- /.container-fluid -->
+
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            events: '{% url "ITC_APP:program_events" %}',  // URL endpoint untuk mengambil data acara
-        });
-
-        calendar.render();
-    });
-</script>
 {%endblock konten%}

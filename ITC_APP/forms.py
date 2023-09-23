@@ -1,5 +1,5 @@
 from django import forms
-from .models import Anggota, Sertifikat,Program
+from .models import Anggota, Sertifikat,Program,Pengurus,Bidang
 
 
 class SertifikatForm(forms.ModelForm): 
@@ -11,6 +11,25 @@ class ProgramForm(forms.ModelForm):
     class Meta:
         model = Program
         fields = '__all__'
+        
+class PengurusForm(forms.ModelForm): 
+    class Meta:
+        model = Pengurus
+        fields = '__all__'
+        widgets = {
+             'status': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Masukkan Nama Status'}),
+             'nama_pengurus': forms.Select(attrs={'class':'form-control', 'placeholder': 'Masukkan Nama Pengurus'}),
+             'bidang': forms.Select(attrs={'class':'form-control', 'placeholder': 'Masukkan Nama Bidang/Devisi'}),
+        }
+
+class BidangForm(forms.ModelForm): 
+    class Meta:
+        model = Bidang
+        fields = '__all__'
+        widgets = {
+             'nama_bidang': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Masukkan Nama Bidang'}),
+             'deskripsi': forms.Textarea(attrs={'class':'form-control', 'placeholder': 'Masukkan Deskripsi'}),
+        }
         
 
 class AnggotaForm(forms.ModelForm):

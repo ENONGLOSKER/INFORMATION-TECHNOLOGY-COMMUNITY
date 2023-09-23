@@ -115,7 +115,7 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            events: '{% url "ITC_APP:program_events" %}',  // URL endpoint untuk mengambil data acara
+            events: '{% url "dashboard:program_events" %}',  // URL endpoint untuk mengambil data acara
         });
 
         calendar.render();

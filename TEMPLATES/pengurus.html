@@ -82,10 +82,33 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">UKM ITC<h1>
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div id="popup" >
+                <!-- icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </symbol>
+                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </symbol>                               
+                </svg>
                 
-                <a href="{%url 'ITC_APP:anggota_create'%}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                <!-- message -->
+                <div class="alert alert-success d-flex align-items-center" role="alert" id="success-message">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                    <div>
+                        {{ message }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">PENGURUS BIDANG {{bidangs}}<h1>
+                
+                <a href="{%url 'dashboard:pengurus_create'%}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="fas fa-plus fa-sm text-white-50"></i>  Add Data
                 </a>  
         </div>
@@ -98,7 +121,7 @@
                     <!-- Card Header - Dropdown -->
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data ITC</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Pengurus UKM ITC</h6>
                         </div>
                         <div class="card-body table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -117,18 +140,13 @@
                                             <td>{{data.nama_pengurus}}</td>                                                                                                              
                                             <td>{{data.status}}</td>
                                            
-                                            <td class="text-center">                                                            
-                                                <a href="{% url 'ITC_APP:anggota_detail' id=data.id %}" class="btn btn-info btn-icon-split mb-1">
-                                                    <span class="icon text-white-25">
-                                                        <i class="fas fa-sharp fa-solid fa-eye"></i>
-                                                    </span>                                                                
-                                                </a>
-                                                <a href="" class="btn btn-warning btn-icon-split mb-1 ">
+                                            <td class="text-center">
+                                                <a href="{%url 'dashboard:pengurus_update' id=data.id%}" class="btn btn-warning btn-icon-split mb-1 ">
                                                     <span class="icon text-white-25">
                                                         <i class="fas fa-edit"></i>
                                                     </span>                                                                
                                                 </a>
-                                                <a href="" class="btn btn-danger btn-icon-split mb-1">
+                                                <a href="{%url 'dashboard:pengurus_delete' id=data.id%}" class="btn btn-danger btn-icon-split mb-1" onclick="return confirm('yakin ingin menghapus data?')">
                                                     <span class="icon text-white-25">
                                                         <i class="fas fa-trash"></i>
                                                     </span>                                                                
@@ -155,6 +173,13 @@
     <!-- /.container-fluid -->
 
 </div>
+<script>
+    setTimeout(function() {
+      var popup = document.getElementById("popup");
+      popup.style.display = "none";
+    }, 3000); // 5000 artinya popup akan menghilang setelah 5 detik
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 {%endblock konten%}

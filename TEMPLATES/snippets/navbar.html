@@ -3,7 +3,10 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-        <div class="sidebar-brand-text mx-3">UKM ITC<sup style="color: rgb(255, 251, 0);"></sup></div>
+        <div class="sidebar-brand-text mx-3">
+            <img src="{%static 'img/ITC.png'%}" width="150px">
+            <sup style="color: rgb(255, 251, 0);"></sup>
+        </div>
     </a>
 
     <!-- Divider -->
@@ -11,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="{%url 'ITC_APP:index'%}">
+        <a class="nav-link" href="{%url 'dashboard:dashboard'%}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -26,7 +29,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="{%url 'ITC_APP:anggota'%}">
+        <a class="nav-link" href="{%url 'dashboard:anggota'%}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Anggota</span></a>  
     </li>
@@ -41,9 +44,11 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pilih Bidang:</h6>
-               {%for bid in bidang%}
-                    <a class="collapse-item" href="{%url 'ITC_APP:pengurus' bid.id%}">{{bid.nama_bidang}}</a>
-               {%endfor%}
+                {%for bid in bidang%}
+                    <a class="collapse-item" href="{%url 'dashboard:pengurus' bid.id%}">{{bid.nama_bidang}}</a>
+                {%endfor%}
+                <hr class="sidebar-divider">                
+                    <a class="collapse-item bg-gradient-primary text-white text-center" href="{%url 'dashboard:bidang_list'%}">SETTINGS</a>
                 
             </div>
         </div>
@@ -51,7 +56,7 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="{%url 'ITC_APP:program_calendar'%}">
+        <a class="nav-link" href="{%url 'dashboard:program_calendar'%}">
             <i class="fas fa-fw fa-table"></i>
             <span>Program</span></a>
     </li>
@@ -64,5 +69,10 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+    
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
 
 </ul>
