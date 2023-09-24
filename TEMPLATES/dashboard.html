@@ -64,7 +64,7 @@
             <li class="nav-item dropdown no-arrow">    
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user}}</span>
                     <img class="img-profile rounded-circle"
                         src="{%static 'img/logo.png'%}">
                 </a>
@@ -113,76 +113,28 @@
                 </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
-            {%for data_jlh in bidang%}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Bid.{{data_jlh.nama_bidang}}</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="" class="text-gray-800" >Anggota 25</a></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {%endfor%}
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Bid.Multimedia</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="" class="text-gray-800">Anggota 15</a></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+            {% for data_bidang in data_pengurus_per_bidang %}
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Bidang {{ data_bidang.nama_bidang }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <a href="" class="text-gray-800">Pengurus {{ data_bidang.jumlah_pengurus }}</a>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
 
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-danger shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Bid.IOT</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="" class="text-gray-800">Anggota 15</a></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Bid.Multimedia</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="" class="text-gray-800">Anggota 15</a></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
         </div>
         <div class="row">
 
@@ -195,8 +147,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Visualisasi Data </h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                               
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                 aria-labelledby="dropdownMenuLink">                                            
@@ -204,8 +155,8 @@
                         </div>
                     </div>
                     <!-- Card Body -->
-                    <div class="card-body">
-                      
+                    <div class="card-body" >
+                        <canvas id="barChart"></canvas>                        
                     </div>
                 </div>
             </div>
@@ -221,10 +172,10 @@
                         </div>
                     </div>
                     <!-- Card Body -->
-                    <div class="card-body">
-                        <!-- <div class="chart-pie pt-4 pb-2">
-                            <canvas id="chartpkh"></canvas>
-                        </div> -->
+                    <div class="card-body" style="padding-bottom: 100px;">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="piediagram"></canvas>
+                        </div>
                         <div class="mt-4 text-center small">
                             
                         </div>
@@ -235,4 +186,118 @@
         <!-- end content data-->
     </div>
 </div>
+
+
+<!-- Memasukkan Chart.js melalui CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('barChart').getContext('2d');
+    
+        var data = {
+            labels: [
+                'Total Anggota',
+                {% for bidang in bid_nav %}
+                    '{{ bidang.nama_bidang }}',
+                {% endfor %}
+            ],
+            datasets: [{
+                label: 'Jumlah Pengurus',
+                data: [
+                    {{ jlh_anggota }},
+                    {% for bidang_data in data_pengurus_per_bidang %}
+                        {{ bidang_data.jumlah_pengurus }},
+                    {% endfor %}
+                ],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 3,
+                pointBackgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                fill: false
+            }]
+        };
+    
+        var myChart = new Chart(ctx, {
+            type: 'line', 
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+       
+    });
+</script>
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('piediagram').getContext('2d');
+    
+        var data = {
+            labels: [
+                'Total Anggota',
+                {% for bidang in bid_nav %}
+                    '{{ bidang.nama_bidang }}',
+                {% endfor %}
+            ],
+            datasets: [{
+                label: 'Jumlah Pengurus',
+                data: [
+                    {{ jlh_anggota }},
+                    {% for bidang_data in data_pengurus_per_bidang %}
+                        {{ bidang_data.jumlah_pengurus }},
+                    {% endfor %}
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+    
+        var myChart = new Chart(ctx, {
+            type: 'pie',  // Jenis grafik: pie chart
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        position: 'nearest'
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    
 {%endblock konten%}

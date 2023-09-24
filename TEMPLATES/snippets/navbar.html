@@ -44,7 +44,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pilih Bidang:</h6>
-                {%for bid in bidang%}
+                {%for bid in bid_nav%}
                     <a class="collapse-item" href="{%url 'dashboard:pengurus' bid.id%}">{{bid.nama_bidang}}</a>
                 {%endfor%}
                 <hr class="sidebar-divider">                

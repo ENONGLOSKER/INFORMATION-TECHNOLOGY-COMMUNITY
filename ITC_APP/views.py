@@ -12,23 +12,36 @@ from django.http import HttpResponse
 # Create your views here.
 
 @csrf_exempt
-def dashboard(request):
-    bidangs = Bidang.objects.all()
+def dashboard(request): 
     jlh_anggota = Anggota.objects.all().count()
-    
+    bid_nav = Bidang.objects.all()
+
+    # Mendapatkan data jumlah pengurus per bidang
+    data_pengurus_per_bidang = []
+    bidangs = Bidang.objects.all()
+
+    for bidang in bidangs:
+        jumlah_pengurus = Pengurus.objects.filter(bidang=bidang).count()
+        data_pengurus_per_bidang.append({
+            'nama_bidang': bidang.nama_bidang,
+            'jumlah_pengurus': jumlah_pengurus,
+        })
 
     context = {
-        'bidang': bidangs,
-        'jlh_anggota':jlh_anggota,
-        
-        }
-    return render(request,'dashboard.html',context)
+        'bid_nav': bid_nav,
+        'jlh_anggota': jlh_anggota,
+        'data_pengurus_per_bidang': data_pengurus_per_bidang,
+    }
+
+    return render(request, 'dashboard.html', context)
+
+
 
 # ANGGOTA
 
 @csrf_exempt
 def anggota_create(request):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     if request.method == 'POST':
         form = AnggotaForm(request.POST)
         if form.is_valid():
@@ -41,17 +54,17 @@ def anggota_create(request):
 
     context = {
         'form': form,
-        'bidang': bidang,
+        'bid_nav': bid_nav,
     }
     return render(request, 'anggota_crate.html',context)
 @csrf_exempt
 def anggota(request):
     data = Anggota.objects.all().order_by('-id')
-    bidangs = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
 
     context = {
         'datas':data,
-        'bidang': bidangs,
+        'bid_nav': bid_nav,
     }
 
     if request.method == 'POST':
@@ -63,7 +76,7 @@ def anggota(request):
     return render(request,'anggota.html',context)
 @csrf_exempt
 def anggota_update(request,id):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     anggota = get_object_or_404(Anggota, id=id)
     if request.method == 'POST':
         form = AnggotaForm(request.POST, instance=anggota)
@@ -77,18 +90,18 @@ def anggota_update(request,id):
     
     context ={
         'form': form,
-        'bidang': bidang,
+        'bid_nav': bid_navbid_nav,
     }
 
     return render(request, 'anggota_crate.html',context )
 @csrf_exempt
 def anggota_detail(request,id):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     anggota = get_object_or_404(Anggota, id=id)
 
     context = {
         'anggota': anggota,
-        'bidang': bidang,
+        'bid_nav': bid_nav,
     }
     return render(request,'anggota_detail.html',context)
 @csrf_exempt
@@ -99,21 +112,21 @@ def anggota_delete(request,id):
 
 #bidang
 def bidang_list(request):
-    bidangs = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     context = {
-        'bidang': bidangs,
+        'bidang': bid_nav,
         }
     return render(request, 'snippets/navbar.html',context )
 
 def bidang(request):
-    bidangs = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     context = {
-        'bidang': bidangs,
+        'bidang': bid_nav,
         }
     return render(request, 'bidang.html',context )
 
 def bidang_create(request):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     if request.method == 'POST':
         form = BidangForm(request.POST)
         if form.is_valid():
@@ -125,12 +138,12 @@ def bidang_create(request):
 
     context = {
         'form': form,
-        'bidang': bidang,
+        'bid_nav': bid_nav,
     }
     return render(request, 'bidang_create.html',context)
 
 def bidang_update(request,id):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     bidangs = get_object_or_404(Bidang, id=id)
     if request.method == 'POST':
         form = BidangForm(request.POST, instance=bidangs)
@@ -144,7 +157,7 @@ def bidang_update(request,id):
     
     context ={
         'form': form,
-        'bidang': bidang,
+        'bid_nav': bid_nav,
     }
 
     return render(request, 'bidang_create.html',context )
@@ -156,36 +169,37 @@ def bidang_delete(request,id):
 
 # pengurus
 def pengurus_list(request, id):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     bidangs = get_object_or_404(Bidang, id=id)
     pengurus = bidangs.bidang.all()
     context={
         'bidangs': bidangs, 
-        'bidang': bidang, 
+        'bid_nav': bid_nav, 
         'pengurus': pengurus,
     }
 
     return render(request, 'pengurus.html',context )
 
 def pengurus_create(request):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     if request.method == 'POST':
         form = PengurusForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, " Data Berhasil di Tambah!")
-            return redirect('dashboard:bidang')
+            pengurus = form.save()  # Simpan objek pengurus ke dalam variabel
+            messages.success(request, "Data Berhasil di Tambah!")
+            return redirect('dashboard:pengurus', id=pengurus.bidang.id)  # Redirect ke pengurus bidang yang sesuai
     else:
         form = PengurusForm()
 
     context = {
         'form': form,
-        'bidang': bidang,
+        'bid_nav': bid_nav,
     }
     return render(request, 'pengurus_crate.html',context)
 
+
 def pengurus_update(request,id):
-    bidang = Bidang.objects.all()
+    bid_nav = Bidang.objects.all()
     pengurus = get_object_or_404(Pengurus, id=id)
     if request.method == 'POST':
         form = PengurusForm(request.POST, instance=pengurus)
@@ -199,7 +213,7 @@ def pengurus_update(request,id):
     
     context ={
         'form': form,
-        'bidang': bidang,
+        'bid_nav': bid_nav,
     }
 
     return render(request, 'pengurus_crate.html',context )
