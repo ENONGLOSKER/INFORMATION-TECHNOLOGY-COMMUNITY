@@ -14,8 +14,13 @@ from django.http import HttpResponse
 @csrf_exempt
 def dashboard(request):
     bidangs = Bidang.objects.all()
+    jlh_anggota = Anggota.objects.all().count()
+    
+
     context = {
         'bidang': bidangs,
+        'jlh_anggota':jlh_anggota,
+        
         }
     return render(request,'dashboard.html',context)
 
