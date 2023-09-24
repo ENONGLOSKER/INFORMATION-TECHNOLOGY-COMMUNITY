@@ -12,11 +12,11 @@
         </button>
 
         <!-- Topbar Search -->
-        <form
-            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-                <input type="text" name="cari" class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2">
+                <input type="text" name="cari" class="form-control bg-light border-0 small"
+                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"
+                    value="{{ search_query }}">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
@@ -223,10 +223,39 @@
 
                                 <div class="col-sm-12 col-md-7">
                                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                        {{ datas.paginator.num_pages }} Halaman,
+                                        <span class="text-primary">Halaman {{ datas.number }} dari {{ datas.paginator.num_pages }}</span>
                                         <ul class="pagination">
+                                            {% if datas.has_previous %}
+                                                <li class="paginate_button page-item previous" id="dataTable_previous">
+                                                    <a href="?page=1{% if search_query %}&cari={{ search_query }}{% endif %}" tabindex="0" class="page-link">First</a>
+                                                </li>
+                                                <li class="paginate_button page-item previous" id="dataTable_previous">
+                                                    <a href="?page={{ datas.previous_page_number }}{% if search_query %}&cari={{ search_query }}{% endif %}" tabindex="0" class="page-link">Previous</a>
+                                                </li>
+                                            {% endif %}
+                                            {% for i in datas.paginator.page_range %}
+                                                {% if datas.number == i %}
+                                                    <li class="paginate_button page-item active">
+                                                        <a href="#" tabindex="0" class="page-link">{{ i }}</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="paginate_button page-item">
+                                                        <a href="?page={{ i }}{% if search_query %}&cari={{ search_query }}{% endif %}" tabindex="0" class="page-link">{{ i }}</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if datas.has_next %}
+                                                <li class="paginate_button page-item next" id="dataTable_next">
+                                                    <a href="?page={{ datas.next_page_number }}{% if search_query %}&cari={{ search_query }}{% endif %}" tabindex="0" class="page-link">Next</a>
+                                                </li>
+                                                <li class="paginate_button page-item next" id="dataTable_next">
+                                                    <a href="?page={{ datas.paginator.num_pages }}{% if search_query %}&cari={{ search_query }}{% endif %}" tabindex="0" class="page-link">Last</a>
+                                                </li>
+                                            {% endif %}
                                         </ul>
                                     </div>
-                                </div>                                        
+                                </div>
                         </div>
                     </div>                               
                 </div>

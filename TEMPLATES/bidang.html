@@ -12,8 +12,7 @@
         </button>
 
         <!-- Topbar Search -->
-        <form
-            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <form action="{% url 'dashboard:bidang_list' %}" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
                 <input type="text" name="cari" class="form-control bg-light border-0 small" placeholder="Search for..."
                     aria-label="Search" aria-describedby="basic-addon2">
@@ -161,9 +160,29 @@
                                 <div class="col-sm-12 col-md-7">
                                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                         <ul class="pagination">
+                                            {% if bidang.has_previous %}
+                                                <li class="page-item"><a class="page-link" href="?page=1">Previous</a></li>
+                                            {% else %}
+                                                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                            {% endif %}
+                                
+                                            {% for num in bidang.paginator.page_range %}
+                                                {% if bidang.number == num %}
+                                                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                                {% else %}
+                                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                
+                                            {% if bidang.has_next %}
+                                                <li class="page-item"><a class="page-link" href="?page={{ bidang.paginator.num_pages }}">Next</a></li>
+                                            {% else %}
+                                                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                            {% endif %}
                                         </ul>
                                     </div>
-                                </div>                                        
+                                </div>
+                                
                         </div>
                     </div>                               
                 </div>

@@ -1,13 +1,11 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Anggota,Sertifikat,Bidang,Pengurus,Program
 from .forms import AnggotaForm,SertifikatForm,ProgramForm,PengurusForm,BidangForm
-from django.core.files.storage import default_storage
-import os
 from django.http import JsonResponse
 from django.contrib import messages
-from django.views.decorators.csrf import csrf_exempt,csrf_protect
-from django.http import HttpResponse
-
+from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 # Create your views here.
 
@@ -34,10 +32,7 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', context)
 
-
-
 # ANGGOTA
-
 @csrf_exempt
 def anggota_create(request):
     bid_nav = Bidang.objects.all()
@@ -56,23 +51,42 @@ def anggota_create(request):
         'bid_nav': bid_nav,
     }
     return render(request, 'anggota_crate.html',context)
+
 @csrf_exempt
 def anggota(request):
     data = Anggota.objects.all().order_by('-id')
     bid_nav = Bidang.objects.all()
 
+    #search 
+    search_query = request.GET.get('cari')
+    if search_query:
+        data = data.filter(
+            Q(nama__icontains=search_query) |
+            Q(nim__icontains=search_query) |
+            Q(alamat__icontains=search_query) |
+            Q(diverifikasi__icontains=search_query)
+        )
+
+    # pagination
+    paginator = Paginator(data, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'datas':data,
+        'datas': page_obj,
         'bid_nav': bid_nav,
+        'search_query': search_query
     }
 
     if request.method == 'POST':
-        anggota_id = request.POST.get('anggota_id')  # Pastikan tombol verifikasi memiliki name="anggota_id"
+        anggota_id = request.POST.get('anggota_id')
         anggota = Anggota.objects.get(id=anggota_id)
-        anggota.diverifikasi = not anggota.diverifikasi  # Toggle status diverifikasi
+        anggota.diverifikasi = not anggota.diverifikasi
         anggota.save()
-        
-    return render(request,'anggota.html',context)
+
+    return render(request, 'anggota.html', context)
+
+
 @csrf_exempt
 def anggota_update(request,id):
     bid_nav = Bidang.objects.all()
@@ -113,16 +127,28 @@ def anggota_delete(request,id):
 def bidang_list(request):
     bid_nav = Bidang.objects.all()
     context = {
-        'bidang': bid_nav,
+        'bid_nav': bid_nav,
         }
     return render(request, 'snippets/navbar.html',context )
 
 def bidang(request):
     bid_nav = Bidang.objects.all()
+    search_query = request.GET.get('cari')
+
+    if search_query:
+        bid_nav = Bidang.objects.filter(nama_bidang__icontains=search_query)
+    else:
+        bid_nav = Bidang.objects.all()
+
+    paginator = Paginator(bid_nav, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'bidang': bid_nav,
-        }
-    return render(request, 'bidang.html',context )
+        'bidang': page_obj,
+        'bid_nav':bid_nav,
+    }
+    return render(request, 'bidang.html', context)
 
 def bidang_create(request):
     bid_nav = Bidang.objects.all()
@@ -171,22 +197,34 @@ def pengurus_list(request, id):
     bid_nav = Bidang.objects.all()
     bidangs = get_object_or_404(Bidang, id=id)
     pengurus = bidangs.bidang.all()
-    context={
+
+    query = request.GET.get('cari')
+    if query:
+        pengurus = pengurus.filter(
+            Q(nama_pengurus__icontains=query) | Q(status__icontains=query)
+        )
+
+    paginator = Paginator(pengurus,5)  
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
         'bidangs': bidangs, 
         'bid_nav': bid_nav, 
-        'pengurus': pengurus,
+        'pengurus': page_obj, 
+        'query': query 
     }
 
-    return render(request, 'pengurus.html',context )
+    return render(request, 'pengurus.html', context)
 
 def pengurus_create(request):
     bid_nav = Bidang.objects.all()
     if request.method == 'POST':
         form = PengurusForm(request.POST)
         if form.is_valid():
-            pengurus = form.save()  # Simpan objek pengurus ke dalam variabel
+            pengurus = form.save()
             messages.success(request, "Data Berhasil di Tambah!")
-            return redirect('dashboard:pengurus', id=pengurus.bidang.id)  # Redirect ke pengurus bidang yang sesuai
+            return redirect('dashboard:pengurus', id=pengurus.bidang.id)
     else:
         form = PengurusForm()
 
@@ -228,7 +266,6 @@ def sertifikat_upload(request):
         form = SertifikatForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            # Redirect ke halaman sertifikat setelah berhasil menyimpan
             return redirect('lihat_sertifikat')
     else:
         form = SertifikatForm()
@@ -258,7 +295,7 @@ def program_add(request):
         form = ProgramForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('dashboard:program_list')  # Perbarui nama namespace
+            return redirect('dashboard:program_list') 
     else:
         form = ProgramForm()
     return render(request, 'program_add.html', {'form': form})

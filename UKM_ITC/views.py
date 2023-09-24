@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect, get_object_or_404
 from ITC_APP . models import Anggota
 from ITC_APP. forms import AnggotaForm
 from django.contrib import messages
-from django.views.decorators.csrf import csrf_exempt,csrf_protect
-from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 @csrf_exempt
