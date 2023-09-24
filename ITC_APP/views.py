@@ -16,7 +16,6 @@ def dashboard(request):
     jlh_anggota = Anggota.objects.all().count()
     bid_nav = Bidang.objects.all()
 
-    # Mendapatkan data jumlah pengurus per bidang
     data_pengurus_per_bidang = []
     bidangs = Bidang.objects.all()
 
