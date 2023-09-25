@@ -156,6 +156,11 @@
                                     <thead class="text-center">
                                         <tr>
                                             <th>NO</th>
+                                            <th>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                </div> <br>
+                                            </th>
                                             <th>NAMA</th>
                                             <th>L/P</th>
                                             <th>ALAMAT</th>
@@ -170,6 +175,11 @@
                                         {%for data in datas%}                                                
                                         <tr data-id="{{ data.id }}" {% if data.diverifikasi %}class="verified"{% endif %}>
                                             <td class="text-center">{{forloop.counter}}</td>
+                                            <td class="text-center">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                </div>
+                                            </td>
                                             <td>
                                                 {{data.nama}}
                                                 {% if data.diverifikasi %}

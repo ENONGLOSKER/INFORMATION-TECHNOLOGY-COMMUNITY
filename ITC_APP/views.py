@@ -149,7 +149,7 @@ def bidang(request):
         'bid_nav':bid_nav,
     }
     return render(request, 'bidang.html', context)
-
+@csrf_exempt
 def bidang_create(request):
     bid_nav = Bidang.objects.all()
     if request.method == 'POST':
@@ -166,7 +166,7 @@ def bidang_create(request):
         'bid_nav': bid_nav,
     }
     return render(request, 'bidang_create.html',context)
-
+@csrf_exempt
 def bidang_update(request,id):
     bid_nav = Bidang.objects.all()
     bidangs = get_object_or_404(Bidang, id=id)
@@ -186,7 +186,7 @@ def bidang_update(request,id):
     }
 
     return render(request, 'bidang_create.html',context )
-
+@csrf_exempt
 def bidang_delete(request,id):
     bidang = get_object_or_404(Bidang, id=id)
     bidang.delete()
@@ -216,7 +216,7 @@ def pengurus_list(request, id):
     }
 
     return render(request, 'pengurus.html', context)
-
+@csrf_exempt
 def pengurus_create(request):
     bid_nav = Bidang.objects.all()
     if request.method == 'POST':
@@ -234,7 +234,7 @@ def pengurus_create(request):
     }
     return render(request, 'pengurus_crate.html',context)
 
-
+@csrf_exempt
 def pengurus_update(request,id):
     bid_nav = Bidang.objects.all()
     pengurus = get_object_or_404(Pengurus, id=id)
@@ -254,7 +254,7 @@ def pengurus_update(request,id):
     }
 
     return render(request, 'pengurus_crate.html',context )
-
+@csrf_exempt
 def pengurus_delete(request,id):
     pengurus = get_object_or_404(Pengurus, id=id)
     pengurus.delete()

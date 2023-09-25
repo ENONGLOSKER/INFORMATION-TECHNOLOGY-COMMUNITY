@@ -11,6 +11,11 @@ def index(request):
 
     context = {}
     return render(request,'index.html',context)
+
+@csrf_exempt
+def form_login(request):
+    return render(request, 'form_login.html')
+
 @csrf_exempt
 def sukses_home(request):
     return render(request, 'sukses_home.html')
