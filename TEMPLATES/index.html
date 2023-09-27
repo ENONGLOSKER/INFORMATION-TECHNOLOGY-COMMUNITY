@@ -14,18 +14,19 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </head>
 <body class="bg-[#0E0353]">
 
         <!-- Navbar -->
-        <nav class="p-4 bg-[#0E0230] ">
+        <nav class="p-4 bg-[#0E0230] fixed w-full top-0 opacity-100">
             <div class="mx-4">
                 <div class="md:flex md:items-center md:justify-between item">
                     <div class="md:flex items-center flex justify-between">
     
-                        <div class="flex items-center text-2xl md:text-4xl uppercase text-white font-bold lg:font-semibold -mx-3">
-                            <!-- <img class="w-20 h-20 " src="/img/ITC.png" alt=""> -->                            
-                            <img src="{%static 'img/ukm_itc.png'%}" class="w-9 h-9 bg-white rounded-full p-1 mx-1 md:w-12 md:h-12" alt="">
+                        <div class="flex items-center text-2xl md:text-4xl uppercase text-white font-extrabold -mx-3">
+                            <img src="{%static 'img/ukm_itc.png'%}" class="w-9 h-9 bg-white rounded-full p-1 mx-2 md:w-12 md:h-12"
+                                alt="">
                             ukm <span class="text-yellow-400">itc</span>
                         </div>
     
@@ -40,20 +41,20 @@
                     </div>
                     <div class="mx-10 bg-white">
                         <ul
-                            class="md:flex md:items-center z[-1] bg-[#0E0230] md:z-auto md:static absolute left-0 w-full md:w-auto py-4 md:py-0 pl-5 md:pl-0 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 ">
+                            class="md:flex md:items-center z[-1] bg-[#0E0230] md:z-auto md:static absolute left-0 w-full md:w-auto py-4 md:py-0 text-center md:pl-0 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 ">
                             <li class="mx-3 my-2 md:my-0">
                                 <a href="#" class="text-xl hover:text-[#17C2E8] text-white duration-500">Home</a>
                             </li>
                             <li class="mx-3 my-2 md:my-0">
-                                <a href="#" class="text-xl hover:text-[#17C2E8] text-white duration-500">About</a>
+                                <a href="#about" class="text-xl hover:text-[#17C2E8] text-white duration-500">About</a>
                             </li>
                             <li class="mx-3 my-2 md:my-0">
-                                <a href="#" class="text-xl hover:text-[#17C2E8] text-white duration-500">Devisi</a>
+                                <a href="#devisi" class="text-xl hover:text-[#17C2E8] text-white duration-500">Devisi</a>
                             </li>
     
                             <button
-                                class="bg-[#17C2E8] border border-[#17C2E8] py-1 px-7 mx-4 hover:bg-transparent duration-500 rounded shadow-2xl">
-                                <a href="#" class="text-xl text-white">Login</a>
+                                class=" bg-[#17C2E8] border border-[#17C2E8] py-1 px-7 mx-4 my-2 mt-5 md:mt-0 hover:bg-transparent duration-500 rounded shadow-2xl">
+                                <a href="{%url 'form_login'%}" class="text-xl text-white">Login</a>
                             </button>
                         </ul>
                     </div>
@@ -64,33 +65,213 @@
 
 
         <!-- Halaman -->
-        <div class="block">
-            <div class="mt-24 mx-7 md:mx-60">
+        <div class="block relative" style="z-index:90;" >
+            <div class="mt-24 mx-7 md:mx-60" >
                 <img src="{%static 'img/ukm.png'%}" class="w-full h-full md:w-max md:h-max" alt="" width="600%">
             </div>
             <div class="flex gap-2 mt-5 justify-center md:gap-3">
                 <div>
                     <a href="{%url 'form_login'%}"
-                        class="bg-transparent border border-[#17C2E8] py-2 px-5 md:px-7 text-sm text-white text-base font-semibold md:text-xl rounded-md hover:bg-[#17C2E8]">Login</a>
+                        class="show-modal bg-transparent border border-[#17C2E8] py-1 px-3 md:px-7 md:py-2 md:text-base text-sm text-white font-semibold md:text-xl rounded hover:bg-[#17C2E8]">Login</a>
                 </div>
                 <div>
-                    <a href="{%url 'register'%}"
-                        class="bg-[#17C2E8] border border-[#17C2E8] py-2 px-5 md:px-7 text-sm text-white text-base font-semibold md:text-xl rounded-md hover:bg-transparent">Register</a>
+                    <button class="show-modal">
+                        <a href="{%url 'register'%}"
+                            class="bg-[#17C2E8] border border-[#17C2E8] py-1 px-3 md:px-7 md:py-2 md:text-base text-sm text-white font-semibold md:text-xl rounded hover:bg-transparent shadow-2xl">Register</a>
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- End Halaman -->
+    <!-- End Halaman -->
+
+    <!-- About -->
+    <div class="mt-10" id="about">
+        <div class="md:p-16 md:mx-24 p-5 px-10">
+            <div class="flex">
+                <!-- Gambar -->
+                <!-- <img src="../img/ukm2.png" class="bg-[#011630] shadow rounded-xl md:py-44 py-20 md:px-56 px-20"
+                width="100px" alt=""> -->
+                <div class="mr-3 rounded-lg">
+                    <img src="{%static 'img/ukm_itc.png'%}" class="md:w-[2800px] w-[1500px] bg-[#011630] p-5 rounded-xl" width=""
+                        alt="">
+                </div>
+                <!-- Tentang -->
+                <div class="md:-mt-7 -mt-5">
+                    <span class="text-[#FFC907] font-semibold md:text-3xl">About</span>
+                    <h1 class="text-3xl font-semibold uppercase md:text-6xl text-white">ukm <span
+                            class="text-[#FFC907]">itc</span></h1>
+                    <p class="text-justify text-white md:text-xl text-sm ">Merupakan sebuah wadah untuk mengembangkan
+                        keahlian di
+                        bidang teknologi
+                        informasi, serta sebagai sebuah ekosistem yang menghubungkan mereka dengan peluang baru dan
+                        inovasi terkini dalam dunia teknologi. Dengan berbagai program pelatihan, workshop, dan sumber
+                        daya teknis yang tersedia, ITC menjadi tempat yang memungkinkan para mahasiswa untuk memperluas
+                        pengetahuan dan keterampilan mereka di ranah IT.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-[#011630] md:py-20 py-10 shadow text-center rounded-xl mt-5">
+                <p class="md:px-16 text-white px-6 md:text-lg text-sm">"ITC bukan hanya sebuah tempat untuk mengasah
+                    keahlian di
+                    bidang IT,
+                    melainkan sebuah komunitas dinamis yang membuka pintu menuju masa depan yang penuh dengan potensi
+                    dan inovasi di ranah teknologi."</p>
+            </div>
+        </div>
+    </div>
+    <!-- End About -->
 
 
-        <script>
+    <!-- Devisi -->
+    <div class="" id="devisi">
+        <div class="md:mx-40 mx-12">
+            <div class="flex">
+                <img src="{%static 'img/ukm_itc.png'%}" class="md:w-28 w-16 mr-2 " alt="">
+                <div class="mr-3">
+                    <p class="text-[#FFC907] font-semibold md:text-3xl">Devisi</p>
+                    <h1 class="text-3xl md:text-6xl text-white font-semibold uppercase">ukm <span
+                            class="text-[#FFC907]">itc</span></h1>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 md:gap-5 mt-5">
+                <div
+                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class="rounded-t-lg" src="{%static 'img/ukm_itc.png'%}" alt="" />
+                    </a>
+                    <div class="p-5">
+                        <a href="#"
+                            class="inline-flex justify-center items-center w-full py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Pemrograman
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class="rounded-t-lg" src="{%static 'img/ukm_itc.png'%}" alt="" />
+                    </a>
+                    <div class="p-5">
+                        <a href="#"
+                            class="inline-flex justify-center items-center w-full py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Multimedia
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class="rounded-t-lg" src="{%static 'img/ukm_itc.png'%}" alt="" />
+                    </a>
+                    <div class="p-5">
+                        <a href="#"
+                            class="inline-flex justify-center items-center w-full py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Jaringan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Devisi -->
 
-            let list = document.querySelector('ul');
-    
-            function Menu(e) {
-                // e.name === 'menu' ? e.name = 'close' : e.name = 'menu'
-    
-                e.name === 'menu' ? (e.name = "close", list.classList.add('top-[68px]'), list.classList.add('opacity-100')) : (e.name = "menu", list.classList.remove('top-[68px]', list.classList.remove('opacity-100')))
-            }
-        </script>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-[#010530] mt-10">
+        <div class="mx-auto w-full max-w-screen-xl py-6 p-5 lg:py-8">
+            <div class="md:flex md:justify-between md:mx-10">
+                <div class="mb-6 md:mb-0 ">
+                    <a href="#" class="md:-mt-5">
+                        <img src="{%static 'img/ukm_itc.png'%}" class="md:mx-0 mx-36" alt="ITC UKM" />
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 gap-10 sm:gap-6 sm:grid-cols-2 md:items-center">
+                    <div class="md:mx-10 mx-4">
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">address</h2>
+                        <ul class="text-white dark:text-white font-medium">
+                            <li class="mb-4">
+                                <p class="text-white">Anjani. Suralaga Lotim NTB</p>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:mx-10">
+                        <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Follow us</h2>
+                        <ul class="text-white dark:text-white font-medium">
+                            <li class="mb-4">
+                                <a href="#" class="hover:underline ">Instagram</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:underline">Facebook</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a
+                        href="https://flowbite.com/" class="hover:underline">UKM_ITC™</a>. STMIK Syaikh Zainuddin NW
+                    Anjani.
+                </span>
+                <div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
+                    <p class="text-sm text-gray-500 sm:text-center">Team Developer - Devisi Pemrograman UKM ITC</p>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 8 19">
+                            <path fill-rule="evenodd"
+                                d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Facebook page</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 21 16">
+                            <path
+                                d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z" />
+                        </svg>
+                        <span class="sr-only">Discord community</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 17">
+                            <path fill-rule="evenodd"
+                                d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Twitter page</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">GitHub account</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+
+    <!-- Script -->
+    <script>
+
+        let list = document.querySelector('ul');
+
+        function Menu(e) {
+            // e.name === 'menu' ? e.name = 'close' : e.name = 'menu'
+
+            e.name === 'menu' ? (e.name = "close", list.classList.add('top-[68px]'), list.classList.add('opacity-100')) : (e.name = "menu", list.classList.remove('top-[68px]', list.classList.remove('opacity-100')))
+        }
+
+    </script>
+    <!-- End Script -->
 </body>
 </html>

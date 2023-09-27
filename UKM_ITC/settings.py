@@ -27,7 +27,10 @@ SECRET_KEY = 'django-insecure-7!65+)^7xk6==d#=4k_(74%)(u6_hr1t94*4vd7uw6k^906f$i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['1d30-103-144-145-10.ngrok-free.app']
+ALLOWED_HOSTS = [
+    'a278-103-144-145-10.ngrok-free.app',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -142,3 +145,5 @@ MESSAGE_TAGS = {
     messages.SUCCESS : 'success',
     50: 'critical',
 }
+# kastem redirect @login_required
+LOGIN_URL = 'form_login'

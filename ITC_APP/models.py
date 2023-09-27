@@ -17,6 +17,7 @@ class Anggota(models.Model):
     email    = models.CharField(max_length=255)
     qr       = models.ImageField(upload_to='qrcodes/', blank=True, null=True)
     diverifikasi = models.BooleanField(default=False) 
+    cetak = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nama

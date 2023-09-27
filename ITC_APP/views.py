@@ -6,11 +6,38 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+import json
 
+from django.http import JsonResponse
+
+def update_cetak_status(request):
+    if request.method == 'POST':
+        anggota_id = request.POST.get('anggota_id')
+        is_checked = request.POST.get('isChecked')
+
+        anggota = Anggota.objects.get(id=anggota_id)
+        anggota.cetak = is_checked
+        anggota.save()
+
+        return JsonResponse({'message': 'Status cetak diperbarui'}, status=200)
+    else:
+        return JsonResponse({'message': 'Metode permintaan tidak valid'}, status=400)
+
+
+def print_preview(request):
+    if request.method == 'POST':
+        selected_ids = json.loads(request.POST.get('selected_ids', '[]'))
+        Anggota.objects.filter(id__in=selected_ids).update(cetak=True)
+
+        return HttpResponse(status=200)
+
+    return HttpResponseBadRequest('Invalid request method')
+
+@login_required()
 @csrf_exempt
-def dashboard(request): 
+def dashboard(request):
     jlh_anggota = Anggota.objects.all().count()
     bid_nav = Bidang.objects.all()
 
@@ -33,6 +60,7 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 # ANGGOTA
+@login_required()
 @csrf_exempt
 def anggota_create(request):
     bid_nav = Bidang.objects.all()
@@ -51,7 +79,7 @@ def anggota_create(request):
         'bid_nav': bid_nav,
     }
     return render(request, 'anggota_crate.html',context)
-
+@login_required()
 @csrf_exempt
 def anggota(request):
     data = Anggota.objects.all().order_by('-id')
@@ -86,7 +114,7 @@ def anggota(request):
 
     return render(request, 'anggota.html', context)
 
-
+@login_required()
 @csrf_exempt
 def anggota_update(request,id):
     bid_nav = Bidang.objects.all()
@@ -107,6 +135,8 @@ def anggota_update(request,id):
     }
 
     return render(request, 'anggota_crate.html',context )
+
+@login_required()
 @csrf_exempt
 def anggota_detail(request,id):
     bid_nav = Bidang.objects.all()
@@ -117,6 +147,7 @@ def anggota_detail(request,id):
         'bid_nav': bid_nav,
     }
     return render(request,'anggota_detail.html',context)
+@login_required()
 @csrf_exempt
 def anggota_delete(request,id):
     anggota = get_object_or_404(Anggota, id=id)
@@ -124,13 +155,14 @@ def anggota_delete(request,id):
     return redirect('dashboard:anggota')
 
 #bidang
+@login_required()
 def bidang_list(request):
     bid_nav = Bidang.objects.all()
     context = {
         'bid_nav': bid_nav,
         }
     return render(request, 'snippets/navbar.html',context )
-
+@login_required()
 def bidang(request):
     bid_nav = Bidang.objects.all()
     search_query = request.GET.get('cari')
@@ -149,6 +181,7 @@ def bidang(request):
         'bid_nav':bid_nav,
     }
     return render(request, 'bidang.html', context)
+@login_required()
 @csrf_exempt
 def bidang_create(request):
     bid_nav = Bidang.objects.all()
@@ -166,6 +199,7 @@ def bidang_create(request):
         'bid_nav': bid_nav,
     }
     return render(request, 'bidang_create.html',context)
+@login_required()
 @csrf_exempt
 def bidang_update(request,id):
     bid_nav = Bidang.objects.all()
@@ -186,6 +220,7 @@ def bidang_update(request,id):
     }
 
     return render(request, 'bidang_create.html',context )
+@login_required()
 @csrf_exempt
 def bidang_delete(request,id):
     bidang = get_object_or_404(Bidang, id=id)
@@ -193,6 +228,7 @@ def bidang_delete(request,id):
     return redirect('dashboard:bidang_list')
 
 # pengurus
+@login_required()  
 def pengurus_list(request, id):
     bid_nav = Bidang.objects.all()
     bidangs = get_object_or_404(Bidang, id=id)
@@ -216,6 +252,7 @@ def pengurus_list(request, id):
     }
 
     return render(request, 'pengurus.html', context)
+@login_required()
 @csrf_exempt
 def pengurus_create(request):
     bid_nav = Bidang.objects.all()
@@ -233,7 +270,7 @@ def pengurus_create(request):
         'bid_nav': bid_nav,
     }
     return render(request, 'pengurus_crate.html',context)
-
+@login_required()
 @csrf_exempt
 def pengurus_update(request,id):
     bid_nav = Bidang.objects.all()
@@ -254,6 +291,7 @@ def pengurus_update(request,id):
     }
 
     return render(request, 'pengurus_crate.html',context )
+@login_required()
 @csrf_exempt
 def pengurus_delete(request,id):
     pengurus = get_object_or_404(Pengurus, id=id)

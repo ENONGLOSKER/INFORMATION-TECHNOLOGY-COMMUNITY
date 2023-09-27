@@ -10,6 +10,10 @@ urlpatterns = [
     path('anggota/detail/<int:id>',views.anggota_detail, name='anggota_detail'),
     path('anggota/delete/<int:id>',views.anggota_delete, name='anggota_delete'),
     path('anggota/update/<int:id>',views.anggota_update, name='anggota_update'),
+    path('print_preview/', views.print_preview, name='print_preview'),
+    path('update_cetak_status/', views.update_cetak_status, name='update_cetak_status'),
+
+   
     # sertifikat
     path('upload_sertifikat/', views.sertifikat_upload, name='upload_sertifikat'),
     path('lihat_sertifikat/', views.lihat_sertifikat, name='lihat_sertifikat'),
