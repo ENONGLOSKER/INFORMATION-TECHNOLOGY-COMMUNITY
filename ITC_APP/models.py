@@ -76,3 +76,11 @@ class Program(models.Model):
     lokasi_program = models.CharField(max_length=255)
     waktu = models.CharField(max_length=255)
     keterangan = models.TextField()
+
+class Event(models.Model):
+    title = models.CharField(max_length=100)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.title

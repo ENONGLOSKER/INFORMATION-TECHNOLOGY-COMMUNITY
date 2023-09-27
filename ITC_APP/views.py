@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from .models import Anggota,Sertifikat,Bidang,Pengurus,Program
+from .models import Anggota,Sertifikat,Bidang,Pengurus,Program,Event
 from .forms import AnggotaForm,SertifikatForm,ProgramForm,PengurusForm,BidangForm
 from django.http import JsonResponse
 from django.contrib import messages
@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 import json
 
@@ -357,5 +358,59 @@ def program_events(request):
 
     return JsonResponse(events, safe=False)
 
-def program_calendar(request):
-    return render(request, 'program_calendar.html')
+def calendar_view(request):
+    events = Event.objects.all()
+    bid_nav = Bidang.objects.all()
+    context =  {
+        'bid_nav':bid_nav,
+        'events': events,
+    }
+    return render(request, 'program_calendar.html',context)
+
+def all_events(request):                                                                                                 
+    all_events = Event.objects.all()                                                                                    
+    out = []                                                                                                             
+    for event in all_events:                                                                                             
+        out.append({                                                                                                     
+            'title': event.title,                                                                                                                                                                                       
+            'start': event.start_date.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
+            'end': event.end_date.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
+        })                                                                                                               
+                                                                                                                      
+    return JsonResponse(out, safe=False) 
+
+@csrf_exempt
+def add_event(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+
+        event = Event(title=title, start_date=start_date, end_date=end_date)
+        event.save()
+
+        return redirect('dashboard:program_calendar')
+
+# @csrf_exempt
+# def update_event(request):
+#     if request.method == 'POST':
+#         event_id = request.POST['id']
+#         start_date = request.POST['start_date']
+#         end_date = request.POST['end_date']
+
+#         event = Event.objects.get(id=event_id)
+#         event.start_date = start_date
+#         event.end_date = end_date
+#         event.save()
+
+#         return JsonResponse({'status': 'success'})
+
+# @csrf_exempt
+# def delete_event(request):
+#     if request.method == 'POST':
+#         event_id = request.POST['id']
+
+#         event = Event.objects.get(id=event_id)
+#         event.delete()
+
+#         return JsonResponse({'status': 'success'})
