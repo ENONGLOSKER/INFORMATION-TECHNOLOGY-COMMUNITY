@@ -1,15 +1,18 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Anggota,Sertifikat,Bidang,Pengurus,Program,Event
 from .forms import AnggotaForm,SertifikatForm,ProgramForm,PengurusForm,BidangForm
-from django.http import JsonResponse
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
+from django.views.decorators.csrf import csrf_exempt
+from .models import Event
 import json
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
+
 
 from django.http import JsonResponse
 
@@ -358,12 +361,27 @@ def program_events(request):
 
     return JsonResponse(events, safe=False)
 
+
+
+def calendar(request):
+    events = Event.objects.all()
+    bid_nav = Bidang.objects.all()
+    context =  {
+        'bid_nav':bid_nav,
+        'events': events,
+    }
+    return render(request, 'calendar.html',context)
+
+
+
+
 def calendar_view(request):
     events = Event.objects.all()
     bid_nav = Bidang.objects.all()
     context =  {
         'bid_nav':bid_nav,
         'events': events,
+        'event': events,
     }
     return render(request, 'program_calendar.html',context)
 
@@ -371,7 +389,8 @@ def all_events(request):
     all_events = Event.objects.all()                                                                                    
     out = []                                                                                                             
     for event in all_events:                                                                                             
-        out.append({                                                                                                     
+        out.append({ 
+            'id': event.id,                                                                                                    
             'title': event.title,                                                                                                                                                                                       
             'start': event.start_date.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
             'end': event.end_date.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
@@ -392,25 +411,49 @@ def add_event(request):
         return redirect('dashboard:program_calendar')
 
 # @csrf_exempt
-# def update_event(request):
-#     if request.method == 'POST':
-#         event_id = request.POST['id']
-#         start_date = request.POST['start_date']
-#         end_date = request.POST['end_date']
+# def remove(request):
+#     id = request.GET.get("id", None)
+#     data = {}
+#     if id is not None:
+#         try:
+#             event = Event.objects.get(id=id)
+#             print("idnya ini:",event)
+#             event.delete()
+#             data['success'] = "Event berhasil dihapus."
+#         except Event.DoesNotExist:
+#             data['error'] = "Event dengan id {} tidak ditemukan.".format(id)
+#     else:
+#         data['error'] = "ID tidak valid atau tidak tersedia."
 
-#         event = Event.objects.get(id=event_id)
-#         event.start_date = start_date
-#         event.end_date = end_date
-#         event.save()
+#     return JsonResponse(data)
 
-#         return JsonResponse({'status': 'success'})
+@csrf_exempt
+def remove_event(request, event_id):
+    try:
+        event = Event.objects.get(id=event_id)
+        event.delete()
 
-# @csrf_exempt
-# def delete_event(request):
-#     if request.method == 'POST':
-#         event_id = request.POST['id']
+        data = {'success': True}
+    except Event.DoesNotExist:
+        data = {'success': False, 'message': 'Acara dengan ID yang diberikan tidak ada.'}
 
-#         event = Event.objects.get(id=event_id)
-#         event.delete()
+    return JsonResponse(data)
 
-#         return JsonResponse({'status': 'success'})
+def update_program(request):
+    id = request.GET.get("id", None)
+    title = request.GET.get("title", None)
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+
+    try:
+        event = Event.objects.get(id=id)
+        event.title = title
+        event.start_date = start
+        event.end_date = end
+        event.save()
+
+        data = {'success': True}
+    except Event.DoesNotExist:
+        data = {'success': False, 'message': 'Acara dengan ID yang diberikan tidak ada.'}
+
+    return JsonResponse(data)
