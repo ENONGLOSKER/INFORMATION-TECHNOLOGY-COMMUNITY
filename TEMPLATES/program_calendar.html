@@ -115,8 +115,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">UKM ITC<h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addEventModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Data</a>
+                        <h1 class="h3 mb-0 text-gray-800">Program Kerja UKM ITC<h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addEventModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Tanggal</a>
                     </div>
                 
                     <div class="row">
@@ -175,12 +175,8 @@
         </div>
     </div>
 
-    <!-- Scroll to Top Button & Logout-->
     {%include 'snippets/logout.html'}
-
-    <!-- Bootstrap core JavaScript-->
-    <!-- {%include 'snippets/script.html'%} -->
-   <script>
+    <script>
         $(document).ready(function () {
             var calendar = $('#calendar').fullCalendar({
                 header: {
@@ -189,11 +185,53 @@
                     right: 'month,agendaWeek,agendaDay'
                 },
                 events: '/dashboard/all_events',
-                
+                eventClick: function (event) {
+                    var choice = confirm("Apa yang ingin Anda lakukan?\n\n Hapus klik OK - Edit CENCEL");
+                    if (choice) {
+                        var id = event.id;
+                        $.ajax({
+                            type: "GET",
+                            url: '/dashboard/remove_event/' + id + '/',
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.success) {
+                                    calendar.fullCalendar('removeEvents', id);
+                                    alert('Acara Dihapus');
+                                } else {
+                                    alert(data.message);
+                                }
+                            },
+                            error: function () {
+                                alert('Ada masalah!!!');
+                            }
+                        });
+                    } else {
+                        var id = event.id;
+                        var title = prompt("Masukkan judul acara baru", event.title);
+                        if (title) {
+                            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                            $.ajax({
+                                type: "GET",
+                                url: '/dashboard/update_program/',
+                                data: {'title': title, 'start': start, 'end': end, 'id': id},
+                                dataType: "json",
+                                success: function (data) {
+                                    calendar.fullCalendar('refetchEvents');
+                                    alert('Acara Diperbarui');
+                                },
+                                error: function (data) {
+                                    alert('Ada masalah!!!');
+                                }
+                            });
+                        }
+                    }
+                },
             });
         });
-       
+
     </script>
+        
 
     <!-- modal -->
     <script>

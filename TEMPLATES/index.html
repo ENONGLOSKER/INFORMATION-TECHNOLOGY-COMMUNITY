@@ -15,6 +15,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+
 </head>
 <body class="bg-[#0E0353]">
 
@@ -25,8 +26,7 @@
                     <div class="md:flex items-center flex justify-between">
     
                         <div class="flex items-center text-2xl md:text-4xl uppercase text-white font-extrabold -mx-3">
-                            <img src="{%static 'img/ukm_itc.png'%}" class="w-9 h-9 bg-white rounded-full p-1 mx-2 md:w-12 md:h-12"
-                                alt="">
+                            <img src="{%static 'img/ukm_itc.png'%}" class="w-9 h-9 bg-white rounded-full p-1 mx-2 md:w-12 md:h-12" alt="">
                             ukm <span class="text-yellow-400">itc</span>
                         </div>
     
@@ -65,8 +65,9 @@
 
 
         <!-- Halaman -->
-        <div class="block relative" style="z-index:90;" >
-            <div class="mt-24 mx-7 md:mx-60" >
+
+        <div class="block mb-6">
+            <div class="mt-24 mx-7 md:mx-60">
                 <img src="{%static 'img/ukm.png'%}" class="w-full h-full md:w-max md:h-max" alt="" width="600%">
             </div>
             <div class="flex gap-2 mt-5 justify-center md:gap-3">
@@ -80,38 +81,20 @@
                             class="bg-[#17C2E8] border border-[#17C2E8] py-1 px-3 md:px-7 md:py-2 md:text-base text-sm text-white font-semibold md:text-xl rounded hover:bg-transparent shadow-2xl">Register</a>
                     </button>
                 </div>
+    
             </div>
         </div>
     <!-- End Halaman -->
 
     <!-- About -->
-    <div class="mt-10" id="about">
+    <div class="-mt-50" id="about">
         <div class="md:p-16 md:mx-24 p-5 px-10">
-            <div class="flex">
-                <!-- Gambar -->
-                <!-- <img src="../img/ukm2.png" class="bg-[#011630] shadow rounded-xl md:py-44 py-20 md:px-56 px-20"
-                width="100px" alt=""> -->
-                <div class="mr-3 rounded-lg">
-                    <img src="{%static 'img/ukm_itc.png'%}" class="md:w-[2800px] w-[1500px] bg-[#011630] p-5 rounded-xl" width=""
-                        alt="">
-                </div>
-                <!-- Tentang -->
-                <div class="md:-mt-7 -mt-5">
-                    <span class="text-[#FFC907] font-semibold md:text-3xl">About</span>
-                    <h1 class="text-3xl font-semibold uppercase md:text-6xl text-white">ukm <span
-                            class="text-[#FFC907]">itc</span></h1>
-                    <p class="text-justify text-white md:text-xl text-sm ">Merupakan sebuah wadah untuk mengembangkan
-                        keahlian di
-                        bidang teknologi
-                        informasi, serta sebagai sebuah ekosistem yang menghubungkan mereka dengan peluang baru dan
-                        inovasi terkini dalam dunia teknologi. Dengan berbagai program pelatihan, workshop, dan sumber
-                        daya teknis yang tersedia, ITC menjadi tempat yang memungkinkan para mahasiswa untuk memperluas
-                        pengetahuan dan keterampilan mereka di ranah IT.
-                    </p>
-                </div>
+            <div class="text-center">
+                <span class="text-[#FFC907] font-semibold md:text-2xl">About</span>
+                        <h1 class="text-3xl font-semibold uppercase md:text-4xl text-white">ukm <span
+                                class="text-[#FFC907]">itc</span></h1>
             </div>
-
-            <div class="bg-[#011630] md:py-20 py-10 shadow text-center rounded-xl mt-5">
+            <div class="bg-[#011630] md:py-20 py-10 shadow text-center rounded-xl mt-5 shadow">
                 <p class="md:px-16 text-white px-6 md:text-lg text-sm">"ITC bukan hanya sebuah tempat untuk mengasah
                     keahlian di
                     bidang IT,
@@ -125,22 +108,23 @@
 
     <!-- Devisi -->
     <div class="" id="devisi">
-        <div class="md:mx-40 mx-12">
+        <div class="md:mx-40 mx-6">
             <div class="flex">
                 <img src="{%static 'img/ukm_itc.png'%}" class="md:w-28 w-16 mr-2 " alt="">
-                <div class="mr-3">
-                    <p class="text-[#FFC907] font-semibold md:text-3xl">Devisi</p>
-                    <h1 class="text-3xl md:text-6xl text-white font-semibold uppercase">ukm <span
+                <div class="mr-3 mt-2">
+                    <p class="text-[#FFC907] font-semibold md:text-2xl">Devisi</p>
+                    <h1 class="text-4xl md:text-4l text-white font-semibold uppercase">ukm <span
                             class="text-[#FFC907]">itc</span></h1>
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-2 md:gap-5 mt-5">
+            <div class=" justify-center md:grid md:grid-cols-3 md:gap-5 mt-5 ">
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-5">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{%static 'img/ukm_itc.png'%}" alt="" />
+                        <img class="rounded-t-lg w-full" src="{%static 'img/programing.jpg'%}" alt="" />
                     </a>
                     <div class="p-5">
+                        <p class="text-sm  text-white mb-4"> Devisi tempat mengembangkan keahlian di bidang programming atau coding utnuk membuat suatu inovasi dibidang digital berbentuk aplikasi ataupun web. </p>
                         <a href="#"
                             class="inline-flex justify-center items-center w-full py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Pemrograman
@@ -148,23 +132,25 @@
                     </div>
                 </div>
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-5">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{%static 'img/ukm_itc.png'%}" alt="" />
+                        <img class="rounded-t-lg w-full" src="{%static 'img/iot.jpg'%}" alt="" />
                     </a>
                     <div class="p-5">
+                        <p class="text-sm  text-white mb-4"> Devisi tempat mengembangkan keahlian di bidang programming atau coding utnuk membuat suatu inovasi dibidang digital berbentuk aplikasi ataupun web. </p>
                         <a href="#"
                             class="inline-flex justify-center items-center w-full py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Multimedia
+                            IoT
                         </a>
                     </div>
                 </div>
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-5 w-full">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{%static 'img/ukm_itc.png'%}" alt="" />
+                        <img class="rounded-t-lg w-full" src="{%static 'img/jaringan.jpg'%}" alt="" />
                     </a>
                     <div class="p-5">
+                        <p class="text-sm  text-white mb-4"> Devisi tempat mengembangkan keahlian di bidang programming atau coding utnuk membuat suatu inovasi dibidang digital berbentuk aplikasi ataupun web. </p>
                         <a href="#"
                             class="inline-flex justify-center items-center w-full py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Jaringan
@@ -178,20 +164,22 @@
 
 
     <!-- Footer -->
-    <footer class="bg-white dark:bg-[#010530] mt-10">
+     <footer class="bg-white dark:bg-[#010530] mt-10">
         <div class="mx-auto w-full max-w-screen-xl py-6 p-5 lg:py-8">
             <div class="md:flex md:justify-between md:mx-10">
                 <div class="mb-6 md:mb-0 ">
                     <a href="#" class="md:-mt-5">
-                        <img src="{%static 'img/ukm_itc.png'%}" class="md:mx-0 mx-36" alt="ITC UKM" />
+                        <img src="{%static 'img/ukm_itc.png'%}" class="md:mx-0 md:w-full mx-4 w-24" alt="ITC UKM" />
                     </a>
                 </div>
-                <div class="grid grid-cols-2 gap-10 sm:gap-6 sm:grid-cols-2 md:items-center">
-                    <div class="md:mx-10 mx-4">
+                <div class="grid grid-cols-2 gap-4 sm:gap-3 sm:grid-cols-2 md:items-center">
+                    <div class="md:ml-20 mx-2">
                         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">address</h2>
                         <ul class="text-white dark:text-white font-medium">
                             <li class="mb-4">
-                                <p class="text-white">Anjani. Suralaga Lotim NTB</p>
+                                <p class="text-white text-sm ">JL. Raya Mataram Labuhan Lombok KM 49 Pondok Pesantren
+                                    Syaikh Zainuddin NW Anjani, Anjani, Kec. Suralaga, Kabupaten Lombok Timur, Nusa
+                                    Tenggara Barat. 83611</p>
                             </li>
                             <li>
                             </li>
@@ -201,7 +189,7 @@
                         <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Follow us</h2>
                         <ul class="text-white dark:text-white font-medium">
                             <li class="mb-4">
-                                <a href="#" class="hover:underline ">Instagram</a>
+                                <a href="https://www.instagram.com/informasiteknologicommunity/" class="hover:underline text-sm">@informasiteknologicommunity</a>
                             </li>
                             <li>
                                 <a href="#" class="hover:underline">Facebook</a>
@@ -213,11 +201,9 @@
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
             <div class="sm:flex sm:items-center sm:justify-between">
                 <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a
-                        href="https://flowbite.com/" class="hover:underline">UKM_ITC™</a>. STMIK Syaikh Zainuddin NW
-                    Anjani.
+                        href="https://stmiksznw.ac.id/" class="hover:underline">UKM_ITC™</a>. STMIK SZ NW || Team Developer - Devisi Pemrograman UKM ITC
                 </span>
                 <div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
-                    <p class="text-sm text-gray-500 sm:text-center">Team Developer - Devisi Pemrograman UKM ITC</p>
                     <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
                         <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 8 19">

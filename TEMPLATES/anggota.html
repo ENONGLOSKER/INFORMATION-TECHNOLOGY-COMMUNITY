@@ -176,9 +176,19 @@
                 <div class="card shadow mb-UKM 4">
                     <!-- Card Header - Dropdown -->
                     <div class="card shadow">
-                        <div class="card-header py-3">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Data Anggota UKM ITC</h6>
+                            <div class="position-relative">
+                                <i class="fas fa-filter translate-middle"></i>
+                                <select class="form-select form-select-sm pl-4 pr-2" aria-label=".form-select-sm example" style="border:none;">
+                                    <option selected>Filtering</option>
+                                    <option value="1">Diverifikasi</option>
+                                    <option value="2">Verifikasi</option>                               
+                                </select>
+                            </div>
                         </div>
+                        
+                        
                         <div class="card-body table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead class="text-center">
@@ -315,6 +325,25 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+    const selectFilter = document.querySelector('.form-select');
+
+    selectFilter.addEventListener('change', function() {
+        const selectedOption = parseInt(this.value);
+        const verified = selectedOption === 1 ? true : false;
+
+        const rows = document.querySelectorAll('#dataTable tbody tr');
+
+        rows.forEach(function(row) {
+            const isVerified = row.classList.contains('verified');
+            row.style.display = verified === isVerified ? 'table-row' : 'none';
+        });
+    });
+});
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         var button = document.querySelector('.btn-verifikasi');
 
         button.addEventListener('click', function() {
@@ -326,10 +355,15 @@
 
 <!-- alert sukses -->
 <script>
-    setTimeout(function() {
-      var popup = document.getElementById("popup");
-      popup.style.display = "none";
-    }, 3000); // 5000 artinya popup akan menghilang setelah 5 detik
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var popup = document.getElementById("popup");
+            if (popup) {
+            popup.style.display = "none";
+            }
+        }, 3000);
+    });
+
 </script>
 
 <!-- check  -->
@@ -380,5 +414,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script> -->
 {%endblock konten%}

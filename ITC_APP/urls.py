@@ -33,10 +33,16 @@ urlpatterns = [
     path('list/', views.program_list, name='program_list'),
     path('events/', views.program_events, name='program_events'),
 
+    path('calendar/list', views.calendar, name='calendar'), 
     path('all_events/', views.all_events, name='all_events'), 
     path('calendar/', views.calendar_view, name='program_calendar'),
     path('add_event/', views.add_event, name='add_event'),
-    # path('update_event/', views.update_event, name='update_event'),
-    # path('delete_event/', views.delete_event, name='delete_event'),
+    path('remove_event/<int:event_id>/', views.remove_event, name='remove_event'),
+    path('update_program/', views.update_program, name='update_program'),
+    # path('remove/', views.remove, name='remove'),
+    # path('edit_event/<int:id>/', views.edit_event, name='edit_event'),
+    # path('get_event_details/', views.get_event_details, name='get_event_details'),
+    # path('edit_or_delete_event/<int:event_id>/', views.edit_or_delete_event, name='edit_or_delete_event'),
+
 
 ]
