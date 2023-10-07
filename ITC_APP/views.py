@@ -104,10 +104,15 @@ def anggota_create(request):
             return redirect('dashboard:anggota')
     else:
         form = AnggotaForm()
+    
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
 
     context = {
         'form': form,
         'bid_nav': bid_nav,
+        'notifications': notifications,
+        'notif': notif,
     }
     return render(request, 'anggota_crate.html', context)
 
@@ -165,6 +170,7 @@ def anggota_update(request,id):
             return redirect('dashboard:anggota')
     else:
         form = AnggotaForm(instance=anggota)
+
     
     context ={
         'form': form,
@@ -179,9 +185,13 @@ def anggota_detail(request,id):
     bid_nav = Bidang.objects.all()
     anggota = get_object_or_404(Anggota, id=id)
 
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
     context = {
         'anggota': anggota,
         'bid_nav': bid_nav,
+        'notifications': notifications,
+        'notif': notif,
     }
     return render(request,'anggota_detail.html',context)
 
@@ -196,8 +206,11 @@ def anggota_delete(request,id):
 @login_required()
 def bidang_list(request):
     bid_nav = Bidang.objects.all()
+
+   
     context = {
         'bid_nav': bid_nav,
+      
         }
     return render(request, 'snippets/navbar.html',context )
 
@@ -215,9 +228,14 @@ def bidang(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
+
     context = {
         'bidang': page_obj,
         'bid_nav':bid_nav,
+        'notifications':notifications,
+        'notif':notif,
     }
     return render(request, 'bidang.html', context)
 
@@ -234,9 +252,14 @@ def bidang_create(request):
     else:
         form = BidangForm()
 
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
+
     context = {
         'form': form,
         'bid_nav': bid_nav,
+        'notifications': notifications,
+        'notif': notif,
     }
     return render(request, 'bidang_create.html',context)
 
@@ -286,11 +309,16 @@ def pengurus_list(request, id):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
+
     context = {
         'bidangs': bidangs, 
         'bid_nav': bid_nav, 
         'pengurus': page_obj, 
-        'query': query 
+        'query': query,
+        'notifications': notifications,
+        'notif': notif,
     }
 
     return render(request, 'pengurus.html', context)
@@ -307,10 +335,15 @@ def pengurus_create(request):
             return redirect('dashboard:pengurus', id=pengurus.bidang.id)
     else:
         form = PengurusForm()
+    
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
 
     context = {
         'form': form,
         'bid_nav': bid_nav,
+        'notifications': notifications,
+        'notif': notif,
     }
     return render(request, 'pengurus_crate.html',context)
 
@@ -344,16 +377,26 @@ def pengurus_delete(request,id):
     return redirect('dashboard:anggota')
 
 # program
+@login_required()
+@csrf_exempt
 def calendar_view(request):
     events = Event.objects.all()
     bid_nav = Bidang.objects.all()
+
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
+    
     context =  {
         'bid_nav':bid_nav,
         'events': events,
         'event': events,
+        'notifications': notifications,
+        'notif': notif,
     }
     return render(request, 'program_calendar.html',context)
 
+@login_required()
+@csrf_exempt
 def all_events(request):                                                                                                 
     all_events = Event.objects.all()                                                                                    
     out = []                                                                                                             
@@ -367,6 +410,7 @@ def all_events(request):
                                                                                                                       
     return JsonResponse(out, safe=False) 
 
+@login_required()
 @csrf_exempt
 def add_event(request):
     if request.method == 'POST':
@@ -385,6 +429,7 @@ def add_event(request):
 
         return redirect('dashboard:program_calendar')
 
+@login_required()
 @csrf_exempt
 def remove_event(request, event_id):
     try:
@@ -397,6 +442,8 @@ def remove_event(request, event_id):
 
     return JsonResponse(data)
 
+@login_required()
+@csrf_exempt
 def update_program(request):
     id = request.GET.get("id", None)
     title = request.GET.get("title", None)
@@ -417,6 +464,8 @@ def update_program(request):
     return JsonResponse(data)
 
 # laporan
+@login_required()
+@csrf_exempt
 def laporan(request):
     anggota = Anggota.objects.all().order_by('-diverifikasi')
 
@@ -432,10 +481,15 @@ def laporan(request):
     data_diverifikasi = [{'tanggal': item['tanggal_diverifikasi'].strftime("%d %B %Y"), 'jumlah': item['total']} for item in diverifikasi_per_hari if item['tanggal_diverifikasi']]
     data_anggota_baru = [{'tanggal': item['timestamp__date'].strftime("%d %B %Y"), 'jumlah': item['total']} for item in anggota_baru_per_hari if item['timestamp__date']]
 
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
+
     context={
         'anggota':anggota,
         'data_diverifikasi': data_diverifikasi,
         'data_anggota_baru': data_anggota_baru,
+        'notifications': notifications,
+        'notif': notif,
     }
     return render(request,'laporan.html',context)
 
@@ -455,9 +509,14 @@ def chat(request):
         for nomor in nomor_list:
             kit.sendwhatmsg(nomor, pesan, jam, menit)  
 
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
+
     context={
         'bid_nav':bid_nav,
-        'anggota_list':anggota_list
+        'anggota_list':anggota_list,
+        'notifications':notifications,
+        'notif':notif,
     }
     return render(request,'form_chat.html',context)
 
