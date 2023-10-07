@@ -1,16 +1,24 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from ITC_APP . models import Anggota
+from ITC_APP . models import Anggota,Notification,Bidang,Event,Pengurus
 from ITC_APP. forms import AnggotaForm
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login,logout
-
+from datetime import date
 
 @csrf_exempt
 def index(request):
 
     context = {}
     return render(request,'index.html',context)
+
+@csrf_exempt
+def dash(request):
+    anggota = Anggota.objects.all().order_by('-diverifikasi')
+    context={
+        'anggota':anggota
+    }
+    return render(request,'dash.html',context)
 
 @csrf_exempt
 def form_login(request):
@@ -23,7 +31,11 @@ def form_login(request):
         if user is not None and user.is_superuser:
             login(request, user)
             messages.success(request,"Selamat, Login Berhasil!")
-            return redirect('dashboard:dashboard') 
+            return redirect('dashboard:dashboard')
+        elif user is not None and user.is_staff:
+            login(request, user)
+            messages.success(request,"Selamat, Login Berhasil!")
+            return redirect('dash')
         else:
             return redirect('form_login')
 
@@ -45,6 +57,11 @@ def register(request):
         form = AnggotaForm(request.POST)
         if form.is_valid():
             anggota = form.save()
+            
+            Notification.objects.create(
+                message=f'Anggota baru "{form.instance.nama}" ditambahkan!',
+                notification_type='new_member'
+            )
             return redirect('sukses')
     else:
         form = AnggotaForm()

@@ -83,45 +83,42 @@
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
-
-        <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">UKM ITC<h1>
-                <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-plus fa-sm text-white-50"></i>  Add Data</a>                            -->
-            </div>
-
+            <h1 class="h3 mb-0 text-gray-800">Chat Boot UKM ITC<h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addEventModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Data</a>
+        </div>
+    
         <div class="row">
-
-            <!-- Area tabel -->
             <div class="col-xl-12 col-lg-9">
-                <div class="card shadow mb-UKM 4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Form Register</h6>
-                        </div>
-                        <div class="card-body ">
-                           <div id='calendar'></div>
-                        </div>
-                    </div>                               
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Chat Boot</h6>
+                    </div>
+                    <div class="card-body">
+                        <form  method="post" action="{% url 'dashboard:chat' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="pesan">Pesan:</label>
+                                <textarea class="form-control" id="pesan" name="pesan" rows="3" required></textarea>
+                            </div>
+                            {% for anggota in anggota_list %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="nomor" value="{{ anggota.nomor }}" id="{{ anggota.id }}">
+                                <label class="form-check-label" for="{{ anggota.id }}">{{ anggota.nomor }} ( {{ anggota.nama }} )
+
+                                </label>
+                            </div>
+                            {% endfor %}
+                            <br>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+    
     <!-- /.container-fluid -->
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            events: '{% url "dashboard:program_events" %}',  // URL endpoint untuk mengambil data acara
-        });
-
-        calendar.render();
-    });
-</script>
 {%endblock konten%}

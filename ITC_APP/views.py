@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from .models import Anggota,Sertifikat,Bidang,Pengurus,Program,Event
+from .models import Anggota,Sertifikat,Bidang,Pengurus,Program,Event,Notification
 from .forms import AnggotaForm,SertifikatForm,ProgramForm,PengurusForm,BidangForm
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -7,47 +7,45 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
-from .models import Event
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
+from datetime import date
+from django.http import HttpResponse
+from openpyxl import Workbook
+import pywhatkit as kit
+import datetime
+from django.db.models import Count
+from django.utils import timezone
+from django.db.models.functions import ExtractWeekDay
 
+def notif(request):
+    notif = Notification.objects.all().order_by('-id')
+    context ={
+        'notif':notif,
+    }
+    return render(request,'notif.html',context)
 
-from django.http import JsonResponse
-
-def update_cetak_status(request):
-    if request.method == 'POST':
-        anggota_id = request.POST.get('anggota_id')
-        is_checked = request.POST.get('isChecked')
-
-        anggota = Anggota.objects.get(id=anggota_id)
-        anggota.cetak = is_checked
-        anggota.save()
-
-        return JsonResponse({'message': 'Status cetak diperbarui'}, status=200)
-    else:
-        return JsonResponse({'message': 'Metode permintaan tidak valid'}, status=400)
-
-
-def print_preview(request):
-    if request.method == 'POST':
-        selected_ids = json.loads(request.POST.get('selected_ids', '[]'))
-        Anggota.objects.filter(id__in=selected_ids).update(cetak=True)
-
-        return HttpResponse(status=200)
-
-    return HttpResponseBadRequest('Invalid request method')
+@login_required()
+@csrf_exempt
+def notif_remove(request,id):
+    notif = get_object_or_404(Notification, id=id)
+    notif.delete()
+    return redirect('dashboard:notif')
 
 @login_required()
 @csrf_exempt
 def dashboard(request):
     jlh_anggota = Anggota.objects.all().count()
+    jlh_verifikasi = Anggota.objects.filter(diverifikasi=True).count()
     bid_nav = Bidang.objects.all()
+    program = Event.objects.all().count()
+    notif = Notification.objects.all().count()
 
     data_pengurus_per_bidang = []
     bidangs = Bidang.objects.all()
 
+    # card jumlah masing-masing pengrusu per bidang
     for bidang in bidangs:
         jumlah_pengurus = Pengurus.objects.filter(bidang=bidang).count()
         data_pengurus_per_bidang.append({
@@ -55,10 +53,33 @@ def dashboard(request):
             'jumlah_pengurus': jumlah_pengurus,
         })
 
+    # notifikasi
+    # Membuat daftar hari dalam seminggu
+    days_of_week = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
+
+    # Menghitung jumlah notifikasi per hari
+    notifikasi_per_hari = Notification.objects.annotate(day_of_week=ExtractWeekDay('timestamp')).values('day_of_week').annotate(total=Count('id'))
+
+    # Menyusun hasil query ke dalam format yang sesuai untuk grafik
+    data_notifikasi = [0] * 7
+    for item in notifikasi_per_hari:
+        day_index = item['day_of_week'] - 1  # Mengonversi indeks hari ke format Python (0-6)
+        data_notifikasi[day_index] = item['total']
+
+
+    notifications = Notification.objects.all().order_by('-id')[:5]
+    notif = Notification.objects.all().count()
     context = {
         'bid_nav': bid_nav,
         'jlh_anggota': jlh_anggota,
+        'jlh_verifikasi': jlh_verifikasi,
         'data_pengurus_per_bidang': data_pengurus_per_bidang,
+        'notifications': notifications,
+        'notif': notif,
+        'program': program,
+        'notif': notif,
+        'days_of_week': days_of_week,
+        'data_notifikasi': data_notifikasi
     }
 
     return render(request, 'dashboard.html', context)
@@ -73,8 +94,14 @@ def anggota_create(request):
         if form.is_valid():
             form.save()
             messages.success(request, " Data Berhasil di Tambahkan!")
+
+            # Create notification
+            Notification.objects.create(
+                message=f'Anggota baru "{form.instance.nama}" ditambahkan!',
+                notification_type='new_member'
+            )
+
             return redirect('dashboard:anggota')
-            # return redirect('anggota:anggota_detail', id=form.instance.id)
     else:
         form = AnggotaForm()
 
@@ -82,7 +109,8 @@ def anggota_create(request):
         'form': form,
         'bid_nav': bid_nav,
     }
-    return render(request, 'anggota_crate.html',context)
+    return render(request, 'anggota_crate.html', context)
+
 @login_required()
 @csrf_exempt
 def anggota(request):
@@ -104,10 +132,15 @@ def anggota(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    notifications = Notification.objects.all().order_by('-id')
+    notif = Notification.objects.all().count()
+
     context = {
         'datas': page_obj,
         'bid_nav': bid_nav,
-        'search_query': search_query
+        'search_query': search_query,
+        'notifications': notifications,
+        'notif': notif,
     }
 
     if request.method == 'POST':
@@ -135,7 +168,7 @@ def anggota_update(request,id):
     
     context ={
         'form': form,
-        'bid_nav': bid_navbid_nav,
+        'bid_nav': bid_nav,
     }
 
     return render(request, 'anggota_crate.html',context )
@@ -151,6 +184,7 @@ def anggota_detail(request,id):
         'bid_nav': bid_nav,
     }
     return render(request,'anggota_detail.html',context)
+
 @login_required()
 @csrf_exempt
 def anggota_delete(request,id):
@@ -166,6 +200,7 @@ def bidang_list(request):
         'bid_nav': bid_nav,
         }
     return render(request, 'snippets/navbar.html',context )
+
 @login_required()
 def bidang(request):
     bid_nav = Bidang.objects.all()
@@ -185,6 +220,7 @@ def bidang(request):
         'bid_nav':bid_nav,
     }
     return render(request, 'bidang.html', context)
+
 @login_required()
 @csrf_exempt
 def bidang_create(request):
@@ -203,6 +239,7 @@ def bidang_create(request):
         'bid_nav': bid_nav,
     }
     return render(request, 'bidang_create.html',context)
+
 @login_required()
 @csrf_exempt
 def bidang_update(request,id):
@@ -224,6 +261,7 @@ def bidang_update(request,id):
     }
 
     return render(request, 'bidang_create.html',context )
+
 @login_required()
 @csrf_exempt
 def bidang_delete(request,id):
@@ -256,6 +294,7 @@ def pengurus_list(request, id):
     }
 
     return render(request, 'pengurus.html', context)
+
 @login_required()
 @csrf_exempt
 def pengurus_create(request):
@@ -274,6 +313,7 @@ def pengurus_create(request):
         'bid_nav': bid_nav,
     }
     return render(request, 'pengurus_crate.html',context)
+
 @login_required()
 @csrf_exempt
 def pengurus_update(request,id):
@@ -295,6 +335,7 @@ def pengurus_update(request,id):
     }
 
     return render(request, 'pengurus_crate.html',context )
+
 @login_required()
 @csrf_exempt
 def pengurus_delete(request,id):
@@ -302,79 +343,7 @@ def pengurus_delete(request,id):
     pengurus.delete()
     return redirect('dashboard:anggota')
 
-# sertifikat
-def sertifikat_upload(request):
-    if request.method == 'POST':
-        form = SertifikatForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('lihat_sertifikat')
-    else:
-        form = SertifikatForm()
-    
-    return render(request, 'sertifikat_upload.html', {'form': form})
-
-def lihat_sertifikat(request):
-    sertifikat_list = Sertifikat.objects.all()
-    return render(request, 'sertifikat.html', {'data': sertifikat_list})
-
 # program
-def program_add(request):
-    bidangs = Bidang.objects.all()
-    if request.method == 'POST':
-        form = ProgramForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, " Data Berhasil di Tambah!")
-            return redirect('program:program_list')
-    else:
-        form = ProgramForm()
-    return render(request, 'program_create.html', {'form': form})
-
-def program_add(request):
-    bidangs = Bidang.objects.all()
-    if request.method == 'POST':
-        form = ProgramForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard:program_list') 
-    else:
-        form = ProgramForm()
-    return render(request, 'program_add.html', {'form': form})
-
-def program_list(request):
-    programs = Program.objects.all()
-    return render(request, 'program_list.html', {'programs': programs})
-
-def program_events(request):
-    programs = Program.objects.all()
-    events = []
-
-    for program in programs:
-        events.append({
-            'title': program.nama_program,
-            'start': program.start_date.strftime('%Y-%m-%d'),
-            'end': program.end_date.strftime('%Y-%m-%d'),
-            'location': program.lokasi_program,
-            'description': program.keterangan
-        })
-
-    return JsonResponse(events, safe=False)
-
-
-
-def calendar(request):
-    events = Event.objects.all()
-    bid_nav = Bidang.objects.all()
-    context =  {
-        'bid_nav':bid_nav,
-        'events': events,
-    }
-    return render(request, 'calendar.html',context)
-
-
-
-
 def calendar_view(request):
     events = Event.objects.all()
     bid_nav = Bidang.objects.all()
@@ -408,24 +377,13 @@ def add_event(request):
         event = Event(title=title, start_date=start_date, end_date=end_date)
         event.save()
 
+        # Create notification
+        Notification.objects.create(
+            message=f'Agenda "{title}" ditambahkan!',
+            notification_type='event_added'
+        )
+
         return redirect('dashboard:program_calendar')
-
-# @csrf_exempt
-# def remove(request):
-#     id = request.GET.get("id", None)
-#     data = {}
-#     if id is not None:
-#         try:
-#             event = Event.objects.get(id=id)
-#             print("idnya ini:",event)
-#             event.delete()
-#             data['success'] = "Event berhasil dihapus."
-#         except Event.DoesNotExist:
-#             data['error'] = "Event dengan id {} tidak ditemukan.".format(id)
-#     else:
-#         data['error'] = "ID tidak valid atau tidak tersedia."
-
-#     return JsonResponse(data)
 
 @csrf_exempt
 def remove_event(request, event_id):
@@ -457,3 +415,105 @@ def update_program(request):
         data = {'success': False, 'message': 'Acara dengan ID yang diberikan tidak ada.'}
 
     return JsonResponse(data)
+
+# laporan
+def laporan(request):
+    anggota = Anggota.objects.all().order_by('-diverifikasi')
+
+    today = timezone.now().date()
+
+    # Menghitung jumlah anggota yang diverifikasi per hari
+    diverifikasi_per_hari = Anggota.objects.filter(diverifikasi=True, tanggal_diverifikasi__gte=today).values('tanggal_diverifikasi').annotate(total=Count('id'))
+
+    # Menghitung jumlah anggota baru per hari
+    anggota_baru_per_hari = Notification.objects.filter(notification_type='new_member', timestamp__date__gte=today).values('timestamp__date').annotate(total=Count('id'))
+
+    # Mengonversi hasil query ke format yang sesuai untuk grafik
+    data_diverifikasi = [{'tanggal': item['tanggal_diverifikasi'].strftime("%d %B %Y"), 'jumlah': item['total']} for item in diverifikasi_per_hari if item['tanggal_diverifikasi']]
+    data_anggota_baru = [{'tanggal': item['timestamp__date'].strftime("%d %B %Y"), 'jumlah': item['total']} for item in anggota_baru_per_hari if item['timestamp__date']]
+
+    context={
+        'anggota':anggota,
+        'data_diverifikasi': data_diverifikasi,
+        'data_anggota_baru': data_anggota_baru,
+    }
+    return render(request,'laporan.html',context)
+
+# chat
+@csrf_exempt
+def chat(request):
+    bid_nav = Bidang.objects.all()
+    anggota_list = Anggota.objects.all().order_by('diverifikasi')
+
+    if request.method == 'POST':
+        nomor_list = request.POST.getlist('nomor')
+        pesan = request.POST.get('pesan')
+
+        now = datetime.datetime.now()
+        jam = now.hour
+        menit = now.minute + 1  # waktu pengiriman
+        for nomor in nomor_list:
+            kit.sendwhatmsg(nomor, pesan, jam, menit)  
+
+    context={
+        'bid_nav':bid_nav,
+        'anggota_list':anggota_list
+    }
+    return render(request,'form_chat.html',context)
+
+# sertifikat
+def sertifikat_upload(request):
+    if request.method == 'POST':
+        form = SertifikatForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('lihat_sertifikat')
+    else:
+        form = SertifikatForm()
+    
+    return render(request, 'sertifikat_upload.html', {'form': form})
+
+def lihat_sertifikat(request):
+    sertifikat_list = Sertifikat.objects.all()
+    return render(request, 'sertifikat.html', {'data': sertifikat_list})
+
+def export_excel(request):
+    anggota = Anggota.objects.all().order_by('-diverifikasi')
+
+    workbook = Workbook()
+    worksheet = workbook.active
+
+    # Set header row
+    worksheet.append(['NO', 'NAMA', 'J/K', 'ALAMAT', 'PRODI', 'SEMESTER', 'STATUS'])
+
+    # Populate data
+    for index, data in enumerate(anggota, start=1):
+        worksheet.append([index, data.nama, data.jk, data.alamat, data.prodi, data.semester, "Diverifikasi" if data.diverifikasi else "Verifikasi"])
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=laporan.xlsx'
+    workbook.save(response)
+
+    return response
+
+def update_cetak_status(request):
+    if request.method == 'POST':
+        anggota_id = request.POST.get('anggota_id')
+        is_checked = request.POST.get('isChecked')
+
+        anggota = Anggota.objects.get(id=anggota_id)
+        anggota.cetak = is_checked
+        anggota.save()
+
+        return JsonResponse({'message': 'Status cetak diperbarui'}, status=200)
+    else:
+        return JsonResponse({'message': 'Metode permintaan tidak valid'}, status=400)
+
+def print_preview(request):
+    if request.method == 'POST':
+        selected_ids = json.loads(request.POST.get('selected_ids', '[]'))
+        Anggota.objects.filter(id__in=selected_ids).update(cetak=True)
+
+        return HttpResponse(status=200)
+
+    return HttpResponseBadRequest('Invalid request method')

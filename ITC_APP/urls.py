@@ -12,8 +12,6 @@ urlpatterns = [
     path('anggota/update/<int:id>',views.anggota_update, name='anggota_update'),
     path('print_preview/', views.print_preview, name='print_preview'),
     path('update_cetak_status/', views.update_cetak_status, name='update_cetak_status'),
-
-   
     # sertifikat
     path('upload_sertifikat/', views.sertifikat_upload, name='upload_sertifikat'),
     path('lihat_sertifikat/', views.lihat_sertifikat, name='lihat_sertifikat'),
@@ -29,20 +27,15 @@ urlpatterns = [
     path('pengurus/update/<int:id>', views.pengurus_update, name='pengurus_update'),
     path('pengurus/delete/<int:id>', views.pengurus_delete, name='pengurus_delete'),
     # program
-    path('add/', views.program_add, name='program_add'),
-    path('list/', views.program_list, name='program_list'),
-    path('events/', views.program_events, name='program_events'),
-
-    path('calendar/list', views.calendar, name='calendar'), 
     path('all_events/', views.all_events, name='all_events'), 
     path('calendar/', views.calendar_view, name='program_calendar'),
     path('add_event/', views.add_event, name='add_event'),
     path('remove_event/<int:event_id>/', views.remove_event, name='remove_event'),
     path('update_program/', views.update_program, name='update_program'),
-    # path('remove/', views.remove, name='remove'),
-    # path('edit_event/<int:id>/', views.edit_event, name='edit_event'),
-    # path('get_event_details/', views.get_event_details, name='get_event_details'),
-    # path('edit_or_delete_event/<int:event_id>/', views.edit_or_delete_event, name='edit_or_delete_event'),
-
-
+    # laporan
+    path('laporan/', views.laporan, name='laporan'),
+    path('export_excel/', views.export_excel, name='export_excel'),
+    path('chat/', views.chat, name='chat'),
+    path('notif/', views.notif, name='notif'),
+    path('notif/<int:id>', views.notif_remove, name='notif_remove'),
 ]

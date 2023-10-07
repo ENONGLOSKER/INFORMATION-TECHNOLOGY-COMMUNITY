@@ -59,6 +59,40 @@
                 </div>
             </li>
             
+            <!-- notif -->
+            <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter" >{{notif}}</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Notifikasi
+                                </h6>
+                                <!-- di dalam <div class="dropdown-list"> -->
+                                {% for notifikasi in notifications %}
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-bell text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">{{ notifikasi.timestamp|date:"F d, Y" }}</div>
+                                        <span class="font-weight-bold">{{ notifikasi.message }}</span>
+                                    </div>
+                                </a>
+                                {% endfor %}
+
+                                
+                                <a class="dropdown-item text-center small text-gray-400" href="{%url 'dashboard:notif'%}">Show All Notifikasi</a>
+                            </div>
+            </li>
+
             <div class="topbar-divider d-none d-sm-block"></div>
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">    
@@ -138,6 +172,66 @@
                 </div>
             </div>
 
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Anggota Diverifikasi</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="{%url 'dashboard:anggota'%}" class="text-gray-800">Jumlah {{jlh_verifikasi}} </a></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Program Kerja
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{program}} %</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-info" role="progressbar"
+                                                style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Notifikasi</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="{%url 'dashboard:anggota'%}" class="text-gray-800">Jumlah {{notif}} </a></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {% for data_bidang in data_pengurus_per_bidang %}
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
@@ -208,121 +302,189 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-112 col-lg-12">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Visualisasi Data Notif Per Hari </h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                               
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                aria-labelledby="dropdownMenuLink">                                            
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body" >
+                        <canvas id="notif"></canvas>                        
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- end content data-->
     </div>
+
 </div>
 
+    <!-- SCRIPT -->
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var ctx = document.getElementById('barChart').getContext('2d');
-    
-        var data = {
-            labels: [
-                'Total Anggota',
-                {% for bidang in bid_nav %}
-                    '{{ bidang.nama_bidang }}',
-                {% endfor %}
-            ],
-            datasets: [{
-                label: 'Jumlah Pengurus',
-                data: [
-                    {{ jlh_anggota }},
-                    {% for bidang_data in data_pengurus_per_bidang %}
-                        {{ bidang_data.jumlah_pengurus }},
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('barChart').getContext('2d');
+            
+            var data = {
+                labels: [
+                    'Total Anggota',
+                    'Agt.Diverifikasi',
+                    {% for bidang in bid_nav %}
+                        '{{ bidang.nama_bidang }}',
                     {% endfor %}
+                    'Program',
                 ],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 3,
-                pointBackgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                fill: false
-            }]
-        };
+                datasets: [{
+                    label: 'Jumlah Pengurus',
+                    data: [
+                        {{ jlh_anggota }},
+                        {{ jlh_verifikasi }},
+                        {% for bidang_data in data_pengurus_per_bidang %}
+                            {{ bidang_data.jumlah_pengurus }},
+                        {% endfor %}
+                        {{ program }},
+
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        {% for bidang_data in data_pengurus_per_bidang %}
+                            'rgba(255, 206, 86, 1)',
+                        {% endfor %}
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 3,
+                    pointBackgroundColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    fill: false
+                }]
+            };
     
-        var myChart = new Chart(ctx, {
-            type: 'line', 
-            data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
                         }
                     }
                 }
-            }
+            });
         });
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('piediagram').getContext('2d');
+        
+            var data = {
+                labels: [
+                    'Total Anggota',
+                    'Anggota Diverifikasi',
+                    {% for bidang in bid_nav %}
+                        '{{ bidang.nama_bidang }}',
+                    {% endfor %}
+                    'Program',
+                ],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: [
+                        {{ jlh_anggota }},
+                        {{ jlh_verifikasi }},
+                        {% for bidang_data in data_pengurus_per_bidang %}
+                            {{ bidang_data.jumlah_pengurus }},
+                        {% endfor %}
+                        {{ program }}
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        {% for bidang_data in data_pengurus_per_bidang %}
+                            'rgba(54, 162, 235, 0.5)',
+                        {% endfor %}
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        {% for bidang_data in data_pengurus_per_bidang %}
+                            'rgba(54, 162, 235, 1)',
+                        {% endfor %}
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+        
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            position: 'nearest'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 
-       
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('notif').getContext('2d');
+
+        var data = {
+            labels: [{% for day in days_of_week %}'{{ day }}', {% endfor %}],
+            datasets: [
+                {
+                    label: 'Jumlah Notifikasi',
+                    data: [{% for num in data_notifikasi %}{{ num }}, {% endfor %}],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: data
+        });
     });
 </script>
     
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var ctx = document.getElementById('piediagram').getContext('2d');
-    
-        var data = {
-            labels: [
-                'Total Anggota',
-                {% for bidang in bid_nav %}
-                    '{{ bidang.nama_bidang }}',
-                {% endfor %}
-            ],
-            datasets: [{
-                label: 'Jumlah Pengurus',
-                data: [
-                    {{ jlh_anggota }},
-                    {% for bidang_data in data_pengurus_per_bidang %}
-                        {{ bidang_data.jumlah_pengurus }},
-                    {% endfor %}
-                ],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(153, 102, 255, 0.5)',
-                    'rgba(255, 159, 64, 0.5)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-    
-        var myChart = new Chart(ctx, {
-            type: 'pie',  // Jenis grafik: pie chart
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    },
-                    tooltip: {
-                        position: 'nearest'
-                    }
-                }
-            }
-        });
-    });
-    </script>
     
 {%endblock konten%}

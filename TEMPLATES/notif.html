@@ -52,6 +52,9 @@
                 </div>
             </li>
 
+            <!-- notif -->
+         
+
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
@@ -83,73 +86,62 @@
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
+
+        <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">UKM ITC<h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addEventModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Data</a>
-        </div>
-    
+            <h1 class="h3 mb-0 text-gray-800">Data Notifikasi UKM ITC<h1>
+            
+            </div>
+
         <div class="row">
+
+            <!-- Area tabel -->
             <div class="col-xl-12 col-lg-9">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Calendar Kerja</h6>
-                    </div>
-                    <div class="card-body">
-                        <div id='calendar'></div>
-                    </div>
+                <div class="card shadow mb-UKM 4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Detail Laporan</h6>
+                        </div>
+                        <div class="card-body ">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>NO</th>
+                                            <th>WAKTU</th>
+                                            <th>JENIS</th>
+                                            <th>PESAN</th>
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                        {%for data in notif%}
+                                        <tr>
+                                            <td class="text-center">{{forloop.counter}}</td>
+                                            <td>{{data.timestamp}}</td>
+                                            <td class="text-center">
+                                                {% if data.notification_type == "new_member" %}
+                                                <span class="badge bg-primary text-white">{{data.notification_type}}</span>
+                                                {% else %}
+                                                <span class="badge bg-success text-white">{{data.notification_type}}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td><a href="{%url 'dashboard:notif_remove' id=data.id%}" onclick="return confirm('yakin ingin menghapus data?')" style="text-decoration: none;">{{data.message}}</a></td>
+                                        </tr>
+                                        {%endfor%}
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>                               
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Add Event Modal -->
-    <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{% url 'dashboard:add_event' %}" method="post">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="start_date">Start Date</label>
-                            <input type="datetime-local" class="form-control" id="start_date" name="start_date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="end_date">End Date</label>
-                            <input type="datetime-local" class="form-control" id="end_date" name="end_date" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+
     </div>
     <!-- /.container-fluid -->
 </div>
-
-<script>
-    $(document).ready(function () {
-        var calendar = $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            events: '/dashboard/all_events',
-        });
-    });
-  
-</script>
-
-
-
 {%endblock konten%}

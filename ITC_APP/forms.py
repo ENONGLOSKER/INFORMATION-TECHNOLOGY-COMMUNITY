@@ -30,8 +30,7 @@ class BidangForm(forms.ModelForm):
              'nama_bidang': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Masukkan Nama Bidang'}),
              'deskripsi': forms.Textarea(attrs={'class':'form-control', 'placeholder': 'Masukkan Deskripsi'}),
         }
-        
-
+ 
 class AnggotaForm(forms.ModelForm):
     GENDER_CHOICES = [("L", "Laki-Laki"), ("P", "Perempuan")]
     PD_CHOICES = [("TI", "Teknik Informatika"), ("SI", "Sistem Informasi")]

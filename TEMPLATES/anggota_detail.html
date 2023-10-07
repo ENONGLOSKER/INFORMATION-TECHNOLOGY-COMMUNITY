@@ -51,6 +51,8 @@
                     </form>
                 </div>
             </li>
+            <!-- notif -->
+            
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -102,14 +104,42 @@
                         <div class="card-body ">                                      
                            <div class="row">
                             <div class="col">
-                                <p>Nama: {{ anggota.nama }}</p>
-                                <p>Jenis Kelamin: {{ anggota.jk }}</p>
-                                <p>Alamat: {{ anggota.alamat }}</p>
-                                <p>NIM: {{ anggota.nim }}</p>
-                                <p>Prodi: {{ anggota.prodi }}</p>
-                                <p>Semester: {{ anggota.semester }}</p>
-                                <p>Nomor: {{ anggota.nomor }}</p>
-                                <p>Email: {{ anggota.email }}</p>
+                                <table>
+                                    <tbody>                                      
+                                        <tr>
+                                            <td><p>Nama</p></td>
+                                            <td><p>: {{ anggota.nama }}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p>Jenis Kelamin</p></td>
+                                            <td><p>: {{ anggota.jk }}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p>Alamat</p></td>
+                                            <td><p>: {{ anggota.alamat }}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p>NIM</p></td>
+                                            <td><p>: {{ anggota.nim }}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p>Prodi</p></td>
+                                            <td><p>: {{ anggota.prodi }}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p>Semester</p></td>
+                                            <td><p>: {{ anggota.semester }}</p></td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td><p>Nomor</p></td>
+                                            <td><p>: {{ anggota.nomor }}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p>Email</p></td>
+                                            <td><p>: {{ anggota.email }}</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="col">
                                 <img src="{{ anggota.qr.url }}" alt="QR Code" style=" margin-top: -20px; margin-left: 20px; width: 350px;"> 
