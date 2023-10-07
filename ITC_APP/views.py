@@ -20,8 +20,10 @@ from django.utils import timezone
 from django.db.models.functions import ExtractWeekDay
 
 def notif(request):
+    bid_nav = Bidang.objects.all()
     notif = Notification.objects.all().order_by('-id')
     context ={
+        'bid_nav':bid_nav,
         'notif':notif,
     }
     return render(request,'notif.html',context)
@@ -105,7 +107,7 @@ def anggota_create(request):
     else:
         form = AnggotaForm()
     
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context = {
@@ -137,7 +139,7 @@ def anggota(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context = {
@@ -185,7 +187,7 @@ def anggota_detail(request,id):
     bid_nav = Bidang.objects.all()
     anggota = get_object_or_404(Anggota, id=id)
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
     context = {
         'anggota': anggota,
@@ -228,7 +230,7 @@ def bidang(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context = {
@@ -252,7 +254,7 @@ def bidang_create(request):
     else:
         form = BidangForm()
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context = {
@@ -309,7 +311,7 @@ def pengurus_list(request, id):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context = {
@@ -336,7 +338,7 @@ def pengurus_create(request):
     else:
         form = PengurusForm()
     
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context = {
@@ -383,7 +385,7 @@ def calendar_view(request):
     events = Event.objects.all()
     bid_nav = Bidang.objects.all()
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
     
     context =  {
@@ -467,6 +469,7 @@ def update_program(request):
 @login_required()
 @csrf_exempt
 def laporan(request):
+    bid_nav = Bidang.objects.all()
     anggota = Anggota.objects.all().order_by('-diverifikasi')
 
     today = timezone.now().date()
@@ -481,10 +484,11 @@ def laporan(request):
     data_diverifikasi = [{'tanggal': item['tanggal_diverifikasi'].strftime("%d %B %Y"), 'jumlah': item['total']} for item in diverifikasi_per_hari if item['tanggal_diverifikasi']]
     data_anggota_baru = [{'tanggal': item['timestamp__date'].strftime("%d %B %Y"), 'jumlah': item['total']} for item in anggota_baru_per_hari if item['timestamp__date']]
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context={
+        'bid_nav':bid_nav,
         'anggota':anggota,
         'data_diverifikasi': data_diverifikasi,
         'data_anggota_baru': data_anggota_baru,
@@ -509,7 +513,7 @@ def chat(request):
         for nomor in nomor_list:
             kit.sendwhatmsg(nomor, pesan, jam, menit)  
 
-    notifications = Notification.objects.all().order_by('-id')
+    notifications = Notification.objects.all().order_by('-id')[:5]
     notif = Notification.objects.all().count()
 
     context={

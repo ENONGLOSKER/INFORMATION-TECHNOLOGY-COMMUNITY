@@ -128,17 +128,7 @@
                 <img src="{% static 'img/banner3.png' %}" class="d-block w-100" alt="...">
               </div>
             </div>
-        </div>
-          
-          <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              var myCarousel = new bootstrap.Carousel(document.getElementById('carouselExampleIndicators'), {
-                interval: 2000, // Mengatur interval waktu antara pergantian slide (dalam milidetik)
-                wrap: true // Jika diatur ke true, carousel akan kembali ke slide pertama setelah mencapai slide terakhir
-              });
-            });
-          </script>
-          
+        </div>          
 
         <!-- Modal -->
         <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -347,75 +337,90 @@
     <!-- /.container-fluid -->
 
 </div>
+{%endblock konten%}
 
 <!-- SCRIPT -->
+{%block script%}
 
-    <!-- sound  -->
-    <script>
-        function playSound() {
+<!-- carosell -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var myCarousel = new bootstrap.Carousel(document.getElementById('carouselExampleIndicators'), {
+        interval: 2000, // Mengatur interval waktu antara pergantian slide (dalam milidetik)
+        wrap: true // Jika diatur ke true, carousel akan kembali ke slide pertama setelah mencapai slide terakhir
+      });
+    });
+</script>
+
+<!-- sound  -->
+<script>
+    function playSound() {
+        var audio = document.getElementById('suara');
+        audio.play();
+    }
+</script>
+
+<!-- tabel -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const selectFilter = document.querySelector('.form-select');
+
+    selectFilter.addEventListener('change', function() {
+        const selectedOption = parseInt(this.value);
+        const verified = selectedOption === 1 ? true : false;
+
+        const rows = document.querySelectorAll('#dataTable tbody tr');
+
+        rows.forEach(function(row) {
+            const isVerified = row.classList.contains('verified');
+            row.style.display = verified === isVerified ? 'table-row' : 'none';
+        });
+    });
+});
+
+</script>
+
+<!-- verifikasi -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var button = document.querySelector('.btn-verifikasi');
+
+        button.addEventListener('click', function() {
             var audio = document.getElementById('suara');
             audio.play();
-        }
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const selectFilter = document.querySelector('.form-select');
-
-        selectFilter.addEventListener('change', function() {
-            const selectedOption = parseInt(this.value);
-            const verified = selectedOption === 1 ? true : false;
-
-            const rows = document.querySelectorAll('#dataTable tbody tr');
-
-            rows.forEach(function(row) {
-                const isVerified = row.classList.contains('verified');
-                row.style.display = verified === isVerified ? 'table-row' : 'none';
-            });
         });
     });
+</script>
 
-    </script>
+<!-- alert sukses -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var popup = document.getElementById("popup");
+            if (popup) {
+            popup.style.display = "none";
+            }
+        }, 3000);
+    });
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var button = document.querySelector('.btn-verifikasi');
+</script>
 
-            button.addEventListener('click', function() {
-                var audio = document.getElementById('suara');
-                audio.play();
-            });
-        });
-    </script>
+<!-- click -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const checkboxThead = document.getElementById('flexCheckDefault');
+    const checkboxesTbody = document.querySelectorAll('tbody .form-check-input');
 
-    <!-- alert sukses -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                var popup = document.getElementById("popup");
-                if (popup) {
-                popup.style.display = "none";
-                }
-            }, 3000);
-        });
-
-    </script>
-
-    <!-- check  -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const checkboxThead = document.getElementById('flexCheckDefault');
-        const checkboxesTbody = document.querySelectorAll('tbody .form-check-input');
-
-        checkboxThead.addEventListener('change', function() {
-            checkboxesTbody.forEach(function(checkbox) {
-                checkbox.checked = checkboxThead.checked;
-            });
+    checkboxThead.addEventListener('change', function() {
+        checkboxesTbody.forEach(function(checkbox) {
+            checkbox.checked = checkboxThead.checked;
         });
     });
-    </script>
+});
+</script>
 
-    <script>
+<!-- status -->
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         const checkboxesTbody = document.querySelectorAll('tbody .form-check-input');
 
@@ -446,8 +451,8 @@
         });
     });
 
-    </script>
+</script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-{%endblock konten%}
+{%endblock script%}

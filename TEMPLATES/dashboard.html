@@ -332,135 +332,76 @@
 
 </div>
 
-    <!-- SCRIPT -->
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var ctx = document.getElementById('barChart').getContext('2d');
-            
-            var data = {
-                labels: [
-                    'Total Anggota',
-                    'Agt.Diverifikasi',
-                    {% for bidang in bid_nav %}
-                        '{{ bidang.nama_bidang }}',
+{%endblock konten%}
+
+{%block script%}
+<!-- SCRIPT -->   
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('barChart').getContext('2d');
+        
+        var data = {
+            labels: [
+                'Total Anggota',
+                'Agt.Diverifikasi',
+                {% for bidang in bid_nav %}
+                    '{{ bidang.nama_bidang }}',
+                {% endfor %}
+                'Program',
+            ],
+            datasets: [{
+                label: 'Jumlah Pengurus',
+                data: [
+                    {{ jlh_anggota }},
+                    {{ jlh_verifikasi }},
+                    {% for bidang_data in data_pengurus_per_bidang %}
+                        {{ bidang_data.jumlah_pengurus }},
                     {% endfor %}
-                    'Program',
-                ],
-                datasets: [{
-                    label: 'Jumlah Pengurus',
-                    data: [
-                        {{ jlh_anggota }},
-                        {{ jlh_verifikasi }},
-                        {% for bidang_data in data_pengurus_per_bidang %}
-                            {{ bidang_data.jumlah_pengurus }},
-                        {% endfor %}
-                        {{ program }},
+                    {{ program }},
 
-                    ],
-                    borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        {% for bidang_data in data_pengurus_per_bidang %}
-                            'rgba(255, 206, 86, 1)',
-                        {% endfor %}
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 3,
-                    pointBackgroundColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    {% for bidang_data in data_pengurus_per_bidang %}
                         'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    fill: false
-                }]
-            };
-    
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: data,
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1
-                            }
+                    {% endfor %}
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 3,
+                pointBackgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                fill: false
+            }]
+        };
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
                         }
                     }
                 }
-            });
+            }
         });
-    </script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var ctx = document.getElementById('piediagram').getContext('2d');
-        
-            var data = {
-                labels: [
-                    'Total Anggota',
-                    'Anggota Diverifikasi',
-                    {% for bidang in bid_nav %}
-                        '{{ bidang.nama_bidang }}',
-                    {% endfor %}
-                    'Program',
-                ],
-                datasets: [{
-                    label: 'Jumlah',
-                    data: [
-                        {{ jlh_anggota }},
-                        {{ jlh_verifikasi }},
-                        {% for bidang_data in data_pengurus_per_bidang %}
-                            {{ bidang_data.jumlah_pengurus }},
-                        {% endfor %}
-                        {{ program }}
-                    ],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        {% for bidang_data in data_pengurus_per_bidang %}
-                            'rgba(54, 162, 235, 0.5)',
-                        {% endfor %}
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        {% for bidang_data in data_pengurus_per_bidang %}
-                            'rgba(54, 162, 235, 1)',
-                        {% endfor %}
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-        
-            var myChart = new Chart(ctx, {
-                type: 'pie',
-                data: data,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                        tooltip: {
-                            position: 'nearest'
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var ctx = document.getElementById('notif').getContext('2d');
@@ -484,6 +425,67 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('piediagram').getContext('2d');
     
+        var data = {
+            labels: [
+                'Total Anggota',
+                'Anggota Diverifikasi',
+                {% for bidang in bid_nav %}
+                    '{{ bidang.nama_bidang }}',
+                {% endfor %}
+                'Program',
+            ],
+            datasets: [{
+                label: 'Jumlah',
+                data: [
+                    {{ jlh_anggota }},
+                    {{ jlh_verifikasi }},
+                    {% for bidang_data in data_pengurus_per_bidang %}
+                        {{ bidang_data.jumlah_pengurus }},
+                    {% endfor %}
+                    {{ program }}
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    {% for bidang_data in data_pengurus_per_bidang %}
+                        'rgba(54, 162, 235, 0.5)',
+                    {% endfor %}
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    {% for bidang_data in data_pengurus_per_bidang %}
+                        'rgba(54, 162, 235, 1)',
+                    {% endfor %}
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
     
-{%endblock konten%}
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        position: 'nearest'
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+{%endblock script%}

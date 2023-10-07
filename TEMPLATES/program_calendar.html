@@ -231,91 +231,91 @@
         </div>
     </div>
     
-    <!-- SCRIP BLOK -->
-    <script>
-        $(document).ready(function () {
-            var calendar = $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                events: '/dashboard/all_events',
-                eventClick: function (event) {
-                    var choice = confirm("Apa yang ingin Anda lakukan?\n\n Hapus klik OK - Edit CENCEL");
-                    if (choice) {
-                        var id = event.id;
+<!-- SCRIP BLOK -->
+<script>
+    $(document).ready(function () {
+        var calendar = $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: '/dashboard/all_events',
+            eventClick: function (event) {
+                var choice = confirm("Apa yang ingin Anda lakukan?\n\n Hapus klik OK - Edit CENCEL");
+                if (choice) {
+                    var id = event.id;
+                    $.ajax({
+                        type: "GET",
+                        url: '/dashboard/remove_event/' + id + '/',
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.success) {
+                                calendar.fullCalendar('removeEvents', id);
+                                alert('Acara Dihapus');
+                            } else {
+                                alert(data.message);
+                            }
+                        },
+                        error: function () {
+                            alert('Ada masalah!!!');
+                        }
+                    });
+                } else {
+                    var id = event.id;
+                    var title = prompt("Masukkan judul acara baru", event.title);
+                    if (title) {
+                        var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                        var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                         $.ajax({
                             type: "GET",
-                            url: '/dashboard/remove_event/' + id + '/',
+                            url: '/dashboard/update_program/',
+                            data: {'title': title, 'start': start, 'end': end, 'id': id},
                             dataType: "json",
                             success: function (data) {
-                                if (data.success) {
-                                    calendar.fullCalendar('removeEvents', id);
-                                    alert('Acara Dihapus');
-                                } else {
-                                    alert(data.message);
-                                }
+                                calendar.fullCalendar('refetchEvents');
+                                alert('Acara Diperbarui');
                             },
-                            error: function () {
+                            error: function (data) {
                                 alert('Ada masalah!!!');
                             }
                         });
+                    }
+                }
+            },
+        });
+    });
+
+</script>
+    
+<!-- modal -->
+<script>
+    $(document).ready(function () {
+        $('#addEventForm').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "dashboard:add_event" %}',
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.status === 'success') {
+                        $('#addEventModal').modal('hide');
+                        // Refresh calendar or update events as needed
                     } else {
-                        var id = event.id;
-                        var title = prompt("Masukkan judul acara baru", event.title);
-                        if (title) {
-                            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                            $.ajax({
-                                type: "GET",
-                                url: '/dashboard/update_program/',
-                                data: {'title': title, 'start': start, 'end': end, 'id': id},
-                                dataType: "json",
-                                success: function (data) {
-                                    calendar.fullCalendar('refetchEvents');
-                                    alert('Acara Diperbarui');
-                                },
-                                error: function (data) {
-                                    alert('Ada masalah!!!');
-                                }
-                            });
-                        }
+                        alert('Failed to add event.');
                     }
                 },
+                error: function () {
+                    alert('Error adding event.');
+                }
             });
         });
+    });
+</script>
 
-    </script>
-        
-    <!-- modal -->
-    <script>
-        $(document).ready(function () {
-            $('#addEventForm').submit(function (e) {
-                e.preventDefault();
-    
-                $.ajax({
-                    type: 'POST',
-                    url: '{% url "dashboard:add_event" %}',
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        if (response.status === 'success') {
-                            $('#addEventModal').modal('hide');
-                            // Refresh calendar or update events as needed
-                        } else {
-                            alert('Failed to add event.');
-                        }
-                    },
-                    error: function () {
-                        alert('Error adding event.');
-                    }
-                });
-            });
-        });
-    </script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-    <script src="{%static 'js/sb-admin-2.min.js'%}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="{%static 'js/sb-admin-2.min.js'%}"></script>
  
 </body>
 </html>
