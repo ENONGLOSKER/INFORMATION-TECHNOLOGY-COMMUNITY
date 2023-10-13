@@ -5,19 +5,19 @@
 
 | Login                                                                                                       | Dashboard                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 19.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 20.png)]|
+| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2019.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2020.png)]|
 
 | Visualisasi Data                                                                                                       | Angoota                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 21.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 22.png)]|
+| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2021.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2022.png)]|
 
 | Bidang atau Devisi                                                                                                       | Program Kerja                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 23.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 24.png)]|
+| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2023.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2024.png)]|
 
 | Laporan                                                                                                       | Notifikasi                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 25.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 26.png)]|
+| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2025.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2026.png)]|
 
 
 ### Quick Start
