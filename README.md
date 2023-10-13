@@ -37,7 +37,7 @@ python -m venv env
 ```
 Aktifkan env:
 ```bash
-cd env\Scripts\activate
+env\Scripts\activate
 ```
 Masuk ke Folder:
 ```bash
