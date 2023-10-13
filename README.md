@@ -1,7 +1,7 @@
 # ITC (INFORMATION TECHNOLOGY COMMUNITY)
 ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/ITC.png?raw=true)
 
-### Versions
+### Tampilan
 
 | Login                                                                                                       | Dashboard                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
