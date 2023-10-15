@@ -8,11 +8,15 @@
 
 ## View Project
 <div align="center">
-  <strong>Login Form</strong><br>
+  <div>
+  <strong>Login Form</strong>
   <img src="./STATIC/img/IMG/Frame%2019.png" height="500px"/>
+  </div>
+  <div>
   <strong>Daashboard</strong><br>
   <img src="./STATIC/img/IMG/Frame%2020.png" height="500px"/>
-  <strong>Anggota</strong><br>
+  </div>
+    <strong>Anggota</strong><br>
   <img src="./STATIC/img/IMG/Frame%2021.png" height="500px"/>
   <strong>Bidang atau Devisi</strong><br>
   <img src="./STATIC/img/IMG/Frame%2022.png" height="500px"/>
