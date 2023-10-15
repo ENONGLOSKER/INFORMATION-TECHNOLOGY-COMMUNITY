@@ -7,21 +7,22 @@
 </div>
 
 ## View Project
-<strong>Login Form</strong>
-<img src="./STATIC/img/IMG/Frame%2019.png" height="500px"/>
-<strong>Daashboard</strong>
-<img src="./STATIC/img/IMG/Frame%2020.png" height="500px"/>
-<strong>Anggota</strong>
-<img src="./STATIC/img/IMG/Frame%2021.png" height="500px"/>
-<strong>Bidang atau Devisi</strong>
-<img src="./STATIC/img/IMG/Frame%2022.png" height="500px"/>
-<strong>Program Kerja</strong>
-<img src="./STATIC/img/IMG/Frame%2024.png" height="500px"/>
-<strong>Laporan</strong>
-<img src="./STATIC/img/IMG/Frame%2025.png" height="500px"/>
-<strong>Notifikasi</strong>
-<img src="./STATIC/img/IMG/Frame%2026.png" height="500px"/>
-
+<div align="center">
+  <strong>Login Form</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2019.png" height="500px"/>
+  <strong>Daashboard</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2020.png" height="500px"/>
+  <strong>Anggota</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2021.png" height="500px"/>
+  <strong>Bidang atau Devisi</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2022.png" height="500px"/>
+  <strong>Program Kerja</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2024.png" height="500px"/>
+  <strong>Laporan</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2025.png" height="500px"/>
+  <strong>Notifikasi</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2026.png" height="500px"/>
+</div>
 
 ## Setup Project
 
