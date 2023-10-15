@@ -37,7 +37,7 @@
 
 <strong>Instalasi</strong>
 
-- 📍&nbsp;&nbsp;Install Python (Python Official)(https://www.python.org/)
+- 📍&nbsp;&nbsp;Install Python(Python Official)(https://www.python.org/)
 - 📗&nbsp;&nbsp;Clone repository
 ```bash
 git clone https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY.git
