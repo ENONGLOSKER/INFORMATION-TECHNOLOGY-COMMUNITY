@@ -9,7 +9,7 @@
 ## View Project
 <div align="center">
 
-  <strong>Login Form</strong>
+  <strong>Login Form</strong><br>
   <img src="./STATIC/img/IMG/Frame%2019.png" height="500px" vspace="20"/>
 
   <strong>Daashboard</strong><br>
