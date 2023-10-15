@@ -1,9 +1,8 @@
 <h1 align="center">UKM ITC ⭐&nbsp;&nbsp;</h1>
-<h4 align="center">Information Technology Community</h3>
+<h4 align="center">Unit Kegiatan Mahasiswa Information Technology Community</h3>
 <div align="center">
   <img src="./STATIC/img/IMG/ITC.png"/>
   <br>
-  STMIKSZ NW ANJANI
 </div>
 
 ## View Project
@@ -38,28 +37,28 @@
 
 <strong>Instalasi</strong>
 
-- 📍&nbsp;&nbsp;[Install Python(Python Official)](https://www.python.org/)
-- 📗&nbsp;&nbsp;[Clone repository]
+- 📍&nbsp;&nbsp;Install Python (Python Official)(https://www.python.org/)
+- 📗&nbsp;&nbsp;Clone repository
 ```bash
 git clone https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY.git
 ```
-- 📗&nbsp;&nbsp;[Buat env]
+- 📁&nbsp;&nbsp;Buat env
 ```bash
 python -m venv env
 ```
-- 📗&nbsp;&nbsp;[Aktifkan env]
+- 📁&nbsp;&nbsp;Aktifkan env
 ```bash
 env\Scripts\activate
 ```
-- 📗&nbsp;&nbsp;[Masuk ke Folder]
+- 📁&nbsp;&nbsp;Masuk ke Folder
 ```bash
 cd INFORMATION-TECHNOLOGY-COMMUNITY
 ```
-- 📗&nbsp;&nbsp;[Install requirements]
+- 📁&nbsp;&nbsp;Install requirements
 ```bash
 pip install -r requirement.txt
 ```
-- 📗&nbsp;&nbsp;[Run Server]
+- 📁&nbsp;&nbsp;Run Server
 ```bash
 python manage.py runserver
 ```
