@@ -15,11 +15,14 @@
   <strong>Daashboard</strong><br>
   <img src="./STATIC/img/IMG/Frame%2020.png" height="500px" vspace="20"/>
   
-  <strong>Anggota</strong><br>
+  <strong>Visualisasi Data</strong><br>
   <img src="./STATIC/img/IMG/Frame%2021.png" height="500px" vspace="20"/>
  
-  <strong>Bidang atau Devisi</strong><br>
+  <strong>Anggota</strong><br>
   <img src="./STATIC/img/IMG/Frame%2022.png" height="500px" vspace="20"/>
+  
+  <strong>Bidang atau Devisi</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2023.png" height="500px" vspace="20"/>
   
   <strong>Program Kerja</strong><br>
   <img src="./STATIC/img/IMG/Frame%2024.png" height="500px" vspace="20"/>
