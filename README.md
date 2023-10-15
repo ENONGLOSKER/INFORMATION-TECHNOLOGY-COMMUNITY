@@ -1,45 +1,37 @@
 <h1 align="center">UKM ITC </h1>
 <h4 align="center">Information Technology Community</h3>
 <div align="center">
-  ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/ITC.png?raw=true)
+  <img src="./STATIC/img/IMG/ITC.png" height="300px" />
   support by STMIKSZ NW ANJANI⭐&nbsp;&nbsp;
 </div>
 
+## Setup Project
 
-### Tampilan
+<strong>Instalasi</strong>
 
-| Login                                                                                                       |------------------------------------------------------------------------------------------------------------------------- |
-| ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2019.png) |
-
-
-### Quick Start
-
-Instalasi:
-
-- Install Python 
-  [Python Official](https://www.python.org/)
-
-Clone repository:
+- 📍&nbsp;&nbsp;[Install Python(Python Official)](https://www.python.org/)
+- 📗&nbsp;&nbsp;[Clone repository]
 ```bash
 git clone https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY.git
 ```
-Buat env:
+- 📗&nbsp;&nbsp;[Buat env]
 ```bash
 python -m venv env
 ```
-Aktifkan env:
+- 📗&nbsp;&nbsp;[Aktifkan env]
 ```bash
 env\Scripts\activate
 ```
-Masuk ke Folder:
+- 📗&nbsp;&nbsp;[Masuk ke Folder]
 ```bash
 cd INFORMATION-TECHNOLOGY-COMMUNITY
 ```
-Install requirements:
+- 📗&nbsp;&nbsp;[Install requirements]
 ```bash
 pip install -r requirement.txt
 ```
-Run Server:
+- 📗&nbsp;&nbsp;[Run Server]
 ```bash
 python manage.py runserver
 ```
+<br>
