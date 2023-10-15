@@ -9,28 +9,28 @@
 <div align="center">
 
   <strong>Login Form</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2019.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2019.png" height="500px" width="650px" vspace="20"/>
 
   <strong>Daashboard</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2020.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2020.png" height="500px" width="650px" vspace="20"/>
   
   <strong>Visualisasi Data</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2021.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2021.png" height="500px" width="650px" vspace="20"/>
  
   <strong>Anggota</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2022.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2022.png" height="500px" width="650px" vspace="20"/>
   
   <strong>Bidang atau Devisi</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2023.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2023.png" height="500px" width="650px" vspace="20"/>
   
   <strong>Program Kerja</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2024.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2024.png" height="500px" width="650px" vspace="20"/>
   
   <strong>Laporan</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2025.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2025.png" height="500px" width="650px" vspace="20"/>
   
   <strong>Notifikasi</strong><br>
-  <img src="./STATIC/img/IMG/Frame%2026.png" height="500px" vspace="20"/>
+  <img src="./STATIC/img/IMG/Frame%2026.png" height="500px" width="650px" vspace="20"/>
 </div>
 
 ## Setup Project
