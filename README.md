@@ -1,7 +1,8 @@
 <h1 align="center">UKM ITC </h1>
 <h4 align="center">Information Technology Community</h3>
 <div align="center">
-  <img src="./STATIC/img/IMG/ITC.png" height="300px" />
+  <img src="./STATIC/img/IMG/ITC.png"/>
+  <br>
   support by STMIKSZ NW ANJANI⭐&nbsp;&nbsp;
 </div>
 
