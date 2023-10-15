@@ -1,23 +1,15 @@
-# ITC (INFORMATION TECHNOLOGY COMMUNITY)
-![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/ITC.png?raw=true)
+<h1 align="center">UKM ITC </h1>
+<h4 align="center">Information Technology Community</h3>
+<div align="center">
+  ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/ITC.png?raw=true)
+  support by STMIKSZ NW ANJANI⭐&nbsp;&nbsp;
+</div>
+
 
 ### Tampilan
 
-| Login                                                                                                       | Dashboard                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2019.png) | ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2020.png)|
-
-| Visualisasi Data                                                                                                       | Angoota                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2021.png) | ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2022.png)|
-
-| Bidang atau Devisi                                                                                                       | Program Kerja                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2023.png) | ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2024.png)|
-
-| Laporan                                                                                                       | Notifikasi                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2025.png) | ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2026.png)|
+| Login                                                                                                       |------------------------------------------------------------------------------------------------------------------------- |
+| ![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame%2019.png) |
 
 
 ### Quick Start
