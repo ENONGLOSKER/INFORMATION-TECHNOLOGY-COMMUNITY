@@ -1,53 +1,74 @@
-# ITC (INFORMATION TECHNOLOGY COMMUNITY)
-![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/ITC.png?raw=true)
+<h1 align="center">UKM ITC ⭐&nbsp;&nbsp;</h1>
+<h4 align="center">Unit Kegiatan Mahasiswa Information Technology Community</h3>
+<div align="center">
+  <img src="./STATIC/img/IMG/ITC.png"/>
+  <br>
+</div>
 
-### Versions
+## View Project
+<div align="center">
 
-| Login                                                                                                       | Dashboard                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 19.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 20.png)]|
+  <strong>Login Form</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2019.png" height="500px" vspace="20"/>
 
-| Visualisasi Data                                                                                                       | Angoota                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 21.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 22.png)]|
+  <strong>Daashboard</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2020.png" height="500px" vspace="20"/>
+  
+  <strong>Visualisasi Data</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2021.png" height="500px" vspace="20"/>
+ 
+  <strong>Anggota</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2022.png" height="500px" vspace="20"/>
+  
+  <strong>Bidang atau Devisi</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2023.png" height="500px" vspace="20"/>
+  
+  <strong>Program Kerja</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2024.png" height="500px" vspace="20"/>
+  
+  <strong>Laporan</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2025.png" height="500px" vspace="20"/>
+  
+  <strong>Notifikasi</strong><br>
+  <img src="./STATIC/img/IMG/Frame%2026.png" height="500px" vspace="20"/>
+</div>
 
-| Bidang atau Devisi                                                                                                       | Program Kerja                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 23.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 24.png)]|
+## Setup Project
 
-| Laporan                                                                                                       | Notifikasi                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 25.png)] | [![UKM-ITC](https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/blob/master/STATIC/img/IMG/Frame 26.png)]|
+<strong>Instalasi</strong>
 
-
-### Quick Start
-
-Instalasi:
-
-- Install Python 
-  [Python Official](https://www.python.org/)
-
-Clone repository:
+- 📍&nbsp;&nbsp;[Install Python (Python Official)](https://www.python.org/)
+- 📗&nbsp;&nbsp;Clone repository
 ```bash
 git clone https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY.git
 ```
-Buat env:
+- 📁&nbsp;&nbsp;Buat env
 ```bash
 python -m venv env
 ```
-Aktifkan env:
+- 📁&nbsp;&nbsp;Aktifkan env
 ```bash
-cd env\Scripts\activate
+env\Scripts\activate
 ```
-Masuk ke Folder:
+- 📁&nbsp;&nbsp;Masuk ke Folder
 ```bash
 cd INFORMATION-TECHNOLOGY-COMMUNITY
 ```
-Install requirements:
+- 📁&nbsp;&nbsp;Install requirements
 ```bash
 pip install -r requirement.txt
 ```
-Run Server:
+- 📁&nbsp;&nbsp;Run Server
 ```bash
 python manage.py runserver
 ```
+<br>
+
+
+## Contributors
+
+thanks to all the people who contribute.
+
+<a href="https://github.com/ENONGLOSKER/INFORMATION-TECHNOLOGY-COMMUNITY/graphs/contributors">
+  <img src="https://opencollective.com/INFORMATION-TECHNOLOGY-COMMUNITY/contributors.svg?width=890" />
+</a>
