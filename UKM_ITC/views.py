@@ -5,11 +5,21 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login,logout
 from datetime import date
+from django.core.paginator import Paginator
+
 
 @csrf_exempt
 def index(request):
+    data = Anggota.objects.filter(diverifikasi=True).order_by('-id')
+    # Implementasi pagination
+    paginator = Paginator(data, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    context = {}
+    context = {
+        'data':data,
+        'datas': page_obj,
+    }
     return render(request,'index.html',context)
 
 @csrf_exempt

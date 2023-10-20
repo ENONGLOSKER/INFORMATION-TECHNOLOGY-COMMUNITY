@@ -18,6 +18,9 @@ import datetime
 from django.db.models import Count
 from django.utils import timezone
 from django.db.models.functions import ExtractWeekDay
+from docx import Document
+from docx.shared import Inches
+
 
 def notif(request):
     bid_nav = Bidang.objects.all()
@@ -56,7 +59,6 @@ def dashboard(request):
         })
 
     # notifikasi
-    # Membuat daftar hari dalam seminggu
     days_of_week = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
 
     # Menghitung jumlah notifikasi per hari
@@ -547,11 +549,13 @@ def export_excel(request):
     worksheet = workbook.active
 
     # Set header row
-    worksheet.append(['NO', 'NAMA', 'J/K', 'ALAMAT', 'PRODI', 'SEMESTER', 'STATUS'])
+    worksheet.append(['NO', 'NAMA', 'J/K', 'ALAMAT', 'QR','PRODI', 'SEMESTER', 'STATUS'])
 
     # Populate data
     for index, data in enumerate(anggota, start=1):
-        worksheet.append([index, data.nama, data.jk, data.alamat, data.prodi, data.semester, "Diverifikasi" if data.diverifikasi else "Verifikasi"])
+        jalur_gambar_qr = data.qr.path  # Diasumsikan data.qr adalah ImageField
+        tautan_gambar_qr = f'<img src="{jalur_gambar_qr}" alt="QR Code">'
+        worksheet.append([index, data.nama, data.jk, data.alamat, tautan_gambar_qr, data.prodi, data.semester, "Diverifikasi" if data.diverifikasi else "Verifikasi"])
 
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=laporan.xlsx'
@@ -580,3 +584,66 @@ def print_preview(request):
         return HttpResponse(status=200)
 
     return HttpResponseBadRequest('Invalid request method')
+
+def data_anggota(request):
+    bid_nav = Bidang.objects.all()
+    anggota = Anggota.objects.all().order_by('-diverifikasi')
+
+    context ={
+        'bid_nav':bid_nav,
+        'anggota':anggota
+    }
+
+    return render(request,'data_anggota.html',context)
+
+def export_to_word(request):
+    anggota = Anggota.objects.all().order_by('-diverifikasi')
+
+    # Inisialisasi dokumen Word
+    doc = Document()
+
+    # Tambahkan judul
+    doc.add_heading('Daftar Anggota', level=1)
+
+    # Tambahkan tabel
+    table = doc.add_table(rows=1, cols=8)
+    table.style = 'Table Grid'
+    table.autofit = False
+
+    # Atur lebar kolom
+    widths = (15, 30, 10, 30, 20, 10, 10, 20)  # Sesuaikan lebar kolom sesuai kebutuhan
+    for i, width in enumerate(widths):
+        table.columns[i].width = width
+
+    # Tambahkan header
+    header_cells = table.rows[0].cells
+    header_cells[0].text = 'NO'
+    header_cells[1].text = 'NAMA'
+    header_cells[2].text = 'J/K'
+    header_cells[3].text = 'ALAMAT'
+    header_cells[4].text = 'PRODI'
+    header_cells[5].text = 'SM'
+    header_cells[6].text = 'QR'
+    header_cells[7].text = 'STATUS'
+
+    # Populate data
+    for index, data in enumerate(anggota, start=1):
+        row_cells = table.add_row().cells
+        row_cells[0].text = str(index)
+        row_cells[1].text = data.nama
+        row_cells[2].text = data.jk
+        row_cells[3].text = data.alamat
+        row_cells[4].text = data.prodi
+        row_cells[5].text = str(data.semester)
+        # Sisipkan gambar
+        qr_img_path = data.qr.path
+        row_cells[6].paragraphs[0].add_run().add_picture(qr_img_path, width=Inches(1.25))
+        # Tambahkan status
+        status = "Diverifikasi" if data.diverifikasi else "Verifikasi"
+        row_cells[7].text = status
+
+    # Simpan dokumen
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = 'attachment; filename=daftar_anggota.docx'
+    doc.save(response)
+    return response

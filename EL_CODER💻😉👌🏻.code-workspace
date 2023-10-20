@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../ML (Machine Learning)"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "ADMIN"
+	}
+}

@@ -121,28 +121,10 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Data Laporan UKM ITC<h1>
-                <a href="{% url 'dashboard:export_excel' %}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
-                    class="fas fa-plus fa-sm text-white-50"></i> Data Excel</a>
+                <a href="{% url 'dashboard:export_to_word' %}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+                    class="fas fa-plus fa-sm text-white-50"></i> Data Word</a>
             </div>
 
-            <div class="row mb-4">
-                <!-- Area tabel -->
-                <div class="col-xl-12 col-lg-9" >
-                    <div class="card shadow mb-4" >
-                        <!-- Card Header - Dropdown -->
-                        <div class="card shadow">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Visualiasi Data Laporan Per Hari</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <canvas id="laporan"></canvas>
-                                </div>
-                            </div>
-                        </div>                               
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
 
@@ -162,11 +144,10 @@
                                                 <th>NO</th>
                                                 <th>NAMA</th>
                                                 <th>J/K</th>
-                                                <th>QR</th>
                                                 <th>ALAMAT</th>
                                                 <th>PRODI</th>
                                                 <th>SM</th>
-                                                <th>TANGGAL</th>
+                                                <th>QR</th>
                                                 <th>STATUS</th>
                                             </tr>
                                         </thead>
@@ -175,15 +156,14 @@
                                             {%for data in anggota%}
                                             <tr>
                                                 <td class="text-center">{{forloop.counter}}</td>
+                                                <td><img src="{{data.qr.url}}" style="width: 80px;"></td>                                            
                                                 <td>
                                                     {{data.nama}}
                                                 </td>
                                                 <td>{{data.jk}}</td>
-                                                <td><img src="{{data.qr.url}}" style="width: 80px;"></td>
                                                 <td>{{data.alamat}}</td>
                                                 <td class="text-center">{{data.prodi}}</td>
                                                 <td class="text-center">{{data.semester}}</td>                                            
-                                                <td >{{ data.tanggal_diverifikasi|date:"d F Y" }}</td>                                            
                                                 <td class="text-center">
                                                     {% if data.diverifikasi %}
                                                     <span class="badge bg-primary text-white">Diverifikasi</span>
@@ -193,8 +173,6 @@
                                                 </td>                                            
                                             </tr>
                                             {%endfor%}
-                                            
-                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -214,44 +192,4 @@
 <!-- script -->
 {%block script%}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var ctx = document.getElementById('laporan').getContext('2d');
-
-        var data = {
-            labels: [{% for item in data_diverifikasi %}'{{ item.tanggal }}', {% endfor %}],
-            datasets: [
-                {
-                    label: 'Diverifikasi',
-                    data: [{% for item in data_diverifikasi %}{{ item.jumlah }}, {% endfor %}],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Anggota Baru',
-                    data: [{% for item in data_anggota_baru %}{{ item.jumlah }}, {% endfor %}],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }
-            ]
-        };
-
-        var options = {
-            scales: {
-                y: {
-                    beginAtZero: false,
-                    // stepSize: 0,
-                }
-            }
-        };
-
-        var chart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: options
-        });
-    });
-</script>
 {%endblock script%}

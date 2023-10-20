@@ -34,6 +34,8 @@ urlpatterns = [
     path('update_program/', views.update_program, name='update_program'),
     # laporan
     path('laporan/', views.laporan, name='laporan'),
+    path('data/anggota/', views.data_anggota, name='data_anggota'),
+    path('export_to_word/', views.export_to_word, name='export_to_word'),
     path('export_excel/', views.export_excel, name='export_excel'),
     path('chat/', views.chat, name='chat'),
     path('notif/', views.notif, name='notif'),
